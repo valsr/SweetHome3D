@@ -270,7 +270,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
               CatalogTexture selectedTexture = (CatalogTexture)availableTexturesList.getSelectedValue();
               if (selectedTexture != null) {
                 setPreviewTexture(selectedTexture);
-                // Do not allow to select 45° angle if the texture isn't square
+                // Do not allow to select 45Â° angle if the texture isn't square
                 angle45DegreeRadioButton.setEnabled(Math.abs(selectedTexture.getWidth() - selectedTexture.getHeight()) < 1E-4);
                 if (angle45DegreeRadioButton.isSelected() && !angle45DegreeRadioButton.isEnabled()) {
                   angle0DegreeRadioButton.setSelected(true);

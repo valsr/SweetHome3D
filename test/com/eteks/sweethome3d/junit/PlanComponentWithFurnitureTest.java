@@ -137,7 +137,7 @@ public class PlanComponentWithFurnitureTest extends ComponentTestFixture {
         new Point(120 + widthPixel / 2 - depthPixel / 2 - 1, 
                   120 + depthPixel / 2 + widthPixel / 2))); 
     tester.actionMouseRelease(); 
-    // Check piece angle is 3 * PI / 2 (=-90°)
+    // Check piece angle is 3 * PI / 2 (=-90Â°)
     assertLocationAndOrientationEqualPiece(
         pieceX, pieceY, (float)Math.PI * 3 / 2, piece);
 
@@ -148,17 +148,17 @@ public class PlanComponentWithFurnitureTest extends ComponentTestFixture {
     // Drag mouse to the previous position plus 1 pixel along x axis
     tester.actionMouseMove(planComponent, new ComponentLocation(
         new Point(121, 120))); 
-    // Check piece angle is 0°
+    // Check piece angle is 0Â°
     assertLocationAndOrientationEqualPiece(pieceX, pieceY, 0, piece);
     // Toggle magnetism
     tester.actionKeyPress(TestUtilities.getMagnetismToggleKey());
-    // Check piece angle is different from 0°
+    // Check piece angle is different from 0Â°
     assertFalse("Piece orientation shouldn't be magnetized", 
         Math.abs(piece.getAngle()) < 1E-10);
     tester.actionKeyRelease(TestUtilities.getMagnetismToggleKey());    
     tester.actionKeyStroke(planComponent, KeyEvent.VK_ESCAPE);
     tester.actionMouseRelease(); 
-    // Check piece angle is 3 * PI / 2 (=-90°)
+    // Check piece angle is 3 * PI / 2 (=-90Â°)
     assertLocationAndOrientationEqualPiece(
         pieceX, pieceY, (float)Math.PI * 3 / 2, piece);
     
@@ -242,7 +242,7 @@ public class PlanComponentWithFurnitureTest extends ComponentTestFixture {
         pieceXPixel + depthPixel / 2 + 4, pieceYPixel - widthPixel / 2 + 4))); 
     tester.actionMouseRelease();
     tester.actionKeyRelease(TestUtilities.getMagnetismToggleKey());
-    // Check piece width and depth were resized (caution : piece angle is oriented at 90°)
+    // Check piece width and depth were resized (caution : piece angle is oriented at 90Â°)
     assertDimensionEqualPiece(pieceWidth - 4 / planComponent.getScale(), 
         pieceDepth + 4 / planComponent.getScale(), pieceHeight, piece);
 

@@ -1,5 +1,5 @@
 /*
- * Object3DBranchFactory.java 8 févr. 2011
+ * Object3DBranchFactory.java 8 fÃ©vr. 2011
  *
  * Sweet Home 3D, Copyright (c) 2011 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *

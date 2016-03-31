@@ -1,5 +1,5 @@
 /*
- * ControllerAction.java 8 août 2006
+ * ControllerAction.java 8 aoÃ»t 2006
  *
  * Sweet Home 3D, Copyright (c) 2006 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *

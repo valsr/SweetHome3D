@@ -163,7 +163,7 @@ work of art:
 
 [- A few lines to indicate the name of the work and to give an idea of what it is.]
 [- A few lines to describe, if necessary, the modified work of art and give the name of the author/artist.]
-Copyright © [the date] [name of the author or artist] (if appropriate, specify the names of the previous authors or artists)
+Copyright Â© [the date] [name of the author or artist] (if appropriate, specify the names of the previous authors or artists)
 Copyleft: this work of art is free, you can redistribute it and/or modify it according to terms of the Free Art license.
 You will find a specimen of this license on the site Copyleft Attitude http://artlibre.org as well as on other sites.
 
@@ -212,6 +212,6 @@ a video, a film, a recipe, a CD-rom, a Web site, or a performance under the Free
 any creation which has some claim to be a work of art.
 
 This license has a history: it was born at the meeting " Copyleft Attitude " which took place at 
-"Accès Local" and "Public" in Paris at the beginning of the year 2000. For the first time, it brought 
+"AccÃ¨s Local" and "Public" in Paris at the beginning of the year 2000. For the first time, it brought 
 computer specialists and freeware activists together with contemporary artists and members 
 of the art world.

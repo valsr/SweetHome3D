@@ -7930,7 +7930,7 @@ public class PlanController extends FurnitureController implements Controller {
       Wall previousWall = this.wallEndAtStart != null
           ? this.wallEndAtStart
           : this.wallStartAtStart;
-      // Create a new wall with an angle equal to previous wall angle - 90°
+      // Create a new wall with an angle equal to previous wall angle - 90Â°
       double previousWallAngle = Math.PI - Math.atan2(previousWall.getYStart() - previousWall.getYEnd(), 
           previousWall.getXStart() - previousWall.getXEnd());
       previousWallAngle -=  Math.PI / 2;
@@ -9027,7 +9027,7 @@ public class PlanController extends FurnitureController implements Controller {
       float newPitch = (float)(this.oldPitch 
           + (y - getYLastMousePress()) * Math.cos(this.selectedCamera.getYaw()) * Math.PI / 360
           - (x - getXLastMousePress()) * Math.sin(this.selectedCamera.getYaw()) * Math.PI / 360);
-      // Check new angle is between -90° and 90°  
+      // Check new angle is between -90Â° and 90Â°  
       newPitch = Math.max(newPitch, -(float)Math.PI / 2);
       newPitch = Math.min(newPitch, (float)Math.PI / 2);
       
@@ -10366,7 +10366,7 @@ public class PlanController extends FurnitureController implements Controller {
       float [][] points = this.newRoom.getPoints();
       this.xPreviousPoint = points [points.length - 1][0];
       this.yPreviousPoint = points [points.length - 1][1]; 
-      // Create a new side with an angle equal to previous side angle - 90°
+      // Create a new side with an angle equal to previous side angle - 90Â°
       double previousSideAngle = Math.PI - Math.atan2(points [points.length - 2][1] - points [points.length - 1][1], 
           points [points.length - 2][0] - points [points.length - 1][0]);
       previousSideAngle -=  Math.PI / 2;
@@ -11280,7 +11280,7 @@ public class PlanController extends FurnitureController implements Controller {
       float [][] points = this.newPolyline.getPoints();
       this.xPreviousPoint = points [points.length - 1][0];
       this.yPreviousPoint = points [points.length - 1][1]; 
-      // Create a new segment with an angle equal to previous segment angle - 90°
+      // Create a new segment with an angle equal to previous segment angle - 90Â°
       double previousSegmentAngle = Math.PI - Math.atan2(points [points.length - 2][1] - points [points.length - 1][1], 
           points [points.length - 2][0] - points [points.length - 1][0]);
       previousSegmentAngle -=  Math.PI / 2;

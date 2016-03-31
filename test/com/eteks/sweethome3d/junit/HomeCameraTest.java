@@ -132,18 +132,18 @@ public class HomeCameraTest extends ComponentTestFixture {
     tester.actionKeyStroke(KeyEvent.VK_TAB);
     // Check 3D view has focus
     assertTrue("3D component doesn't have the focus", component3D.isFocusOwner());
-    // Add 1° to camera pitch
+    // Add 1Â° to camera pitch
     tester.actionKeyStroke(KeyEvent.VK_PAGE_UP);
     // Check camera location and angles
     assertCoordinatesAndAnglesEqualCameraLocationAndAngles(xWallMiddle, 1052.5009f, 1098.4805f, 
         (float)Math.PI, (float)Math.PI / 4 - (float)Math.PI / 120, home.getCamera());
     
-    // 4. Remove 1° from camera yaw 
+    // 4. Remove 1Â° from camera yaw 
     tester.actionKeyStroke(KeyEvent.VK_LEFT);
     // Check camera location and angles
     assertCoordinatesAndAnglesEqualCameraLocationAndAngles(147.02121f, 1051.095f, 1098.4805f, 
         (float)Math.PI - (float)Math.PI / 60, (float)Math.PI / 4 - (float)Math.PI / 120, home.getCamera());
-    // Add 10° to camera yaw 
+    // Add 10Â° to camera yaw 
     tester.actionKeyPress(KeyEvent.VK_SHIFT);
     tester.actionKeyStroke(KeyEvent.VK_RIGHT);
     tester.actionKeyRelease(KeyEvent.VK_SHIFT);

@@ -1,5 +1,5 @@
 /*
- * HomeFurnitureGroup.java 4 févr. 2010
+ * HomeFurnitureGroup.java 4 fÃ©vr. 2010
  *
  * Sweet Home 3D, Copyright (c) 2010 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *

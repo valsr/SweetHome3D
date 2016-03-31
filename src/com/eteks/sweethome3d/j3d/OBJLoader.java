@@ -1,5 +1,5 @@
 /*
- * OBJLoader.java 10 févr. 2009
+ * OBJLoader.java 10 fÃ©vr. 2009
  *
  * Sweet Home 3D, Copyright (c) 2009 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *

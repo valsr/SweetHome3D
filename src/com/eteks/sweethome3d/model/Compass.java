@@ -39,7 +39,7 @@ import java.util.TimeZone;
  * A compass used to locate where a home is located and how it's oriented towards North.
  * @since 3.0 
  * @author Emmanuel Puybaret
- * @author Frédéric Mantegazza (Sun location algorithm)
+ * @author FrÃ©dÃ©ric Mantegazza (Sun location algorithm)
  */
 public class Compass implements Serializable, Selectable {
   /**
@@ -1036,7 +1036,7 @@ public class Compass implements Serializable, Selectable {
       timeZoneGeographicPoints.put("GMT", greenwich); // Greenwich
       timeZoneGeographicPoints.put("GMT0", greenwich); // Greenwich
       timeZoneGeographicPoints.put("Greenwich", greenwich); // Greenwich
-      timeZoneGeographicPoints.put("Iceland", new GeographicPoint(64.1333f, -21.9333f)); // Reykjavík
+      timeZoneGeographicPoints.put("Iceland", new GeographicPoint(64.1333f, -21.9333f)); // ReykjavÃ­k
       timeZoneGeographicPoints.put("Portugal", new GeographicPoint(38.7166667f, -9.1333333f)); // Lisbon
       timeZoneGeographicPoints.put("UCT", greenwich); // Greenwich
       timeZoneGeographicPoints.put("UTC", greenwich); // Greenwich

@@ -312,7 +312,7 @@ public class PlanComponentTest extends ComponentTestFixture {
     // Create a wall with same length
     Thread.sleep(500);
     tester.actionKeyStroke(KeyEvent.VK_ENTER);
-    // Create a wall with same length, an angle at 270° and a thickness of 7,55 cm
+    // Create a wall with same length, an angle at 270Â° and a thickness of 7,55 cm
     tester.actionKeyStroke(KeyEvent.VK_DOWN);
     tester.actionKeyStroke(KeyEvent.VK_HOME);
     tester.actionKeyString("27");
