@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<jnlp spec="1.5+" 
+      codebase="http://www.sweethome3d.com/" 
+      href="SweetHome3D.jnlp">
+  <information>
+    <title>Sweet Home 3D</title>
+    <vendor>eTeks</vendor>
+    <homepage href="http://www.sweethome3d.com/"/>
+    <description>Sweet Home 3D</description>
+    <description kind="short">Arrange the furniture of your house</description>
+    <icon href="SweetHome3DIcon.gif"/>
+    <icon kind="shortcut" href="SweetHome3DIcon32x32.png" width="32" height="32"/>
+    <icon kind="shortcut" href="SweetHome3DIcon48x48.png" width="48" height="48"/>
+    <icon kind="splash" href="SweetHome3DSplashScreen.jpg"/>
+    <offline-allowed/>
+    <shortcut online="false">
+      <desktop/>
+      <menu submenu="eTeks Sweet Home 3D"/>
+    </shortcut>
+    <association extensions="sh3d sh3l sh3f sh3t sh3p" 
+                 mime-type="application/SweetHome3D"/>
+  </information>
+  <information locale="fr">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Amenagez les meubles de votre logement</description>
+    <offline-allowed/>
+  </information>
+  <information locale="pt">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Organiza as mobilias da sua casa</description>
+    <offline-allowed/>
+  </information>
+  <information locale="cs">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Sestavte si design interieru vaseho domu</description>
+    <offline-allowed/>
+  </information>
+  <information locale="pl">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Zaprojektuj wnetrze swojego domu</description>
+    <offline-allowed/>    
+  </information>  
+  <information locale="hu">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Keszitse el lakasanak belso kialakitasat!</description>
+    <offline-allowed/>    
+  </information>  
+  <information locale="se">
+    <title>Sweet Home 3D</title>
+    <description kind="short">Fixa heminredningen i ditt hem</description>
+    <offline-allowed/>    
+  </information>  
+
+  <security>
+    <all-permissions/>
+  </security>
+
+  <!-- Request 2 GB max memory for 64 bit Windows and Linux -->
+  <resources os="Windows" arch="x86_64 amd64">
+    <j2se version="1.5+" max-heap-size="2250m"/>
+  </resources>
+  <resources os="Linux" arch="x86_64 amd64">
+    <j2se version="1.5+" max-heap-size="2100m"/>
+  </resources>
+
+  <resources>
+    <!-- Request 640 MB max memory for other systems -->
+    <j2se version="1.5+" max-heap-size="640m"/>
+    <jar href="lib/SweetHome3DJavaWebStart.jar"/>
+    <jar href="lib/freehep-vectorgraphics-svg-2.1.1b.jar"/>
+    <jar href="lib/sunflow-0.07.3i.jar"/>    
+    <jar href="lib/batik-svgpathparser-1.7.jar"/>
+    <jar href="lib/jmf.jar"/>    
+    <property name="com.eteks.sweethome3d.applicationId" value="SweetHome3D#JavaWebStart"/>
+    <property name="com.eteks.sweethome3d.deploymentInformation" value="Java Web Start"/>
+  </resources>
+ 
+  <resources os="Mac\ OS\ X">
+    <!-- Cite SweetHome3D.jar as main jar to ensure the 3D view can work 
+         but the signature in SweetHome3DJavaWebStart.jar won't be taken into account --> 
+    <jar href="lib/SweetHome3D.jar" main="true"/>
+  </resources>
+  <resources>
+    <!-- Cite SweetHome3D.jar without main attribute set to true 
+         to ensure the signature in SweetHome3DJavaWebStart.jar is taken into account --> 
+    <jar href="lib/SweetHome3D.jar"/>
+  </resources>
+ 
+  <resources os="Windows" arch="x86">
+    <jar href="lib/iText-2.1.7.jar"/>
+    <jar href="lib/windows/i386/java3d.jar"/>
+  </resources>
+  <resources os="Windows" arch="x86_64 amd64">
+    <jar href="lib/iText-2.1.7.jar"/>
+    <jar href="lib/windows/x64/java3d.jar"/>
+  </resources>
+
+  <resources os="Mac\ OS\ X">
+    <jar href="lib/macosx/java3d.jar"/>
+    <property name="apple.laf.useScreenMenuBar" value="true"/>
+    <property name="apple.awt.graphics.UseQuartz" value="true"/>
+    <property name="j3d.rend" value="jogl"/>
+  </resources>
+
+  <resources os="Linux" arch="i386">
+    <jar href="lib/iText-2.1.7.jar"/>
+    <jar href="lib/linux/i386/java3d.jar"/>
+  </resources>
+  <resources os="Linux" arch="x86_64 amd64">
+    <jar href="lib/iText-2.1.7.jar"/>
+    <jar href="lib/linux/x64/java3d.jar"/>
+  </resources>
+
+  <resources os="SunOS">
+    <jar href="lib/iText-2.1.7.jar"/>
+    <extension href="http://download.java.net/media/java3d/webstart/release/java3d-1.5-latest.jnlp"/>
+  </resources>
+  
+  <application-desc main-class="com.eteks.sweethome3d.SweetHome3DBootstrap"/>
+</jnlp>

@@ -1,0 +1,134 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	<title>Imprimiendo la casa</title>
+	<link href="../help.css" rel="stylesheet" media="all">
+</head>
+
+<body  bgcolor="#ffffff">
+<div id="banner">
+	<div id="helpheader">
+		<a class="bread" href="index.html">Ayuda Sweet Home 3D</a> > <a class="bread" href="tocCreating.html">Creando
+						      casas, paredes y mobiliario</a>
+	</div>
+</div>
+<div id="mainbox" align="left">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr valign="bottom" height="32">
+	<td width="3" height="32">&nbsp;</td>
+	<td width="32" height="32"><img src="../images/applicationIcon32.png" alt="Icono Sweet Home 3D" height="32" width="32"></td>
+	<td width="8" height="32">&nbsp;&nbsp;</td>
+	<td valign="bottom" height="32"><font id="topic">Imprimiendo
+	    la casa</font></td>
+	</tr>
+	<tr height="10">
+	<td colspan="4" height="10">&nbsp;</td>
+	</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="3">
+    <tr> 
+      <td><p>Para imprimir la casa elige <i>Archivo &gt; Imprimir...</i>.<br>
+          Este menú muestra el diálogo de impresión de tu sistema que te deja 
+          elegir la impresora, El número de páginas impresas, calidad de impresión...</p>
+        <p>Por defecto, Sweet Home 3D imprime la lista de mobiliario, el plano 
+          y la vista 3D actual, usando los valores por defecto para papel tamaño, 
+          márgenes y orientación.<br>
+          Si quieres modificar estos parámetros, elige <i>Archivo &gt; Configurar 
+          Página...</i>.</p>
+        <p align="center"><img src="images/pageSetup.png" alt="Page setup"></p>
+        <p> El Panel de configuración de página, puedes cambiar el tamaño del 
+          papel y la orientación haciendo clic en botón <i>Formato Página</i>. 
+          Tambien puedes elegir si la lista de los muebles, el plano y la vista 
+          3D de una vivienda se imprimira o no. Si no quieres utilizar la escala 
+          de plano automatica, puede elegir otra escala en el campo <i>Escala</i>. 
+          <br>
+          Tambien puedes elegir el cabecera y / o el pie de p&aacute;gina que 
+          aparecera en cada p&aacute;gina impresa. El <i>Cabecera</i> y <i>Pie 
+          de p&aacute;gina</i> acepta texto libre y tambienalgunas variables que 
+          ser&aacute;n sustituidas por su valor en la impresion. Aqu&iacute; est&aacute;n 
+          las 7 variables disponibles: </p>
+        <ul>
+          <li><i> $pageNumber</i> para numero de pagina, </li>
+          <li><i>$pageCount</i> para el numero de paginas, </li>
+          <li><i> $planScale</i> para la escala del plano (bien la automatica 
+            o la que introdujiste en el campo escala), </li>
+          <li><i>$date</i> para la fecha de la impresion,</li>
+          <li><i> $time</i> para la hora de la impresion, </li>
+          <li><i>$name</i> para el nombre de la casa, </li>
+          <li><i>$file</i> para la ruta de archivo de la casa. </li>
+        </ul>
+        <p>Para no tener que escribir el nombre entero de una variable, utilice 
+          el bot&oacute;n de variables que aparecen en la cabecera y el pie los 
+          campos de texto. Como el simbolo <i>$</i> se reserva para las variables, 
+          debe utilizar el c&oacute;digo <i>$$</i> para imprimir el simbolo <i>$</i>. 
+        </p>
+        <p>Para ver la vista preliminar, elige <i>Archivo &gt; Vista Preliminar...</i>.</p>
+        <p align="center"><img src="images/printPreview.png" alt="Vista Preliminar"></p>
+        <p>En el panel de vista preliminar, puedes ver como será impresa tu casa 
+          página a página. Para cambiar de página, haz clic en las flechas de 
+          arriba del panel o en las flechas del teclado.</p></td>
+  </tr>
+</table>
+<div id="taskbox">
+  <table width="100%" border="0" cellspacing="0" cellpadding="7" BGCOLOR="#eeeeee">
+    <tr valign="top" BGCOLOR="#eeeeee">
+      <td bgcolor="#eeeeee" width="98%">
+        <table border="0" cellspacing="0" cellpadding="4">
+          <tr valign="top">
+            <td width="16"><p>&#149;</p>
+            </td>
+            <td>
+              <p>La impresión pudiera no funcionar bien bajo Linux. Si esto ocurriese, elige <i>Archivo &gt; Exportar a PDF...</i> e
+                imprime el archivo PDF.</p>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td><p>&#149;</p>
+            </td>
+            <td>
+              <p>La impresión de la vista 3D pudiera no estar disponible debido a la limitada configuración de tu sistema.
+                En este caso, la casilla <i>Imprimir vista 3D </i> estará desmarcada y deshabilitada.</p>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td><p>&#149;</p></td>
+            <td><p>Si la casa impresa contiene más de un piso, la lista del mobiliarioimpresa contendrá sólo el mobiliario visible en el piso seleccionado, excepto si solicitasimprimir sólo la lista de mobiliario, en cuyo caso se imprimirán todos los muebles de la lista. El plano impreso y la vista en 3D serán los mostradosactualmente en pantalla. Para imprimir el plano o la vista en 3D de varios pisos, selecciona imprimir cada piso uno poruno.</p></td>
+          </tr>
+          <tr valign="top">
+            <td width="16"><p>&#149;</p>
+            </td>
+            <td>
+              <p> La vista 3D se imprime a una resolución de 150 dpi.</p>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td><p>&#149;</p>
+            </td>
+            <td>
+              <p>Si quieres imprimir la escala del plano en papel, dibujar la <a href="drawingDimensions.html">dimensión</a>  de la medición
+                de una longitud estándar (1 metro por ejemplo) en algún lugar del borde del plano.</p>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td><p>&#149;</p>
+            </td>
+            <td>
+              <p>La configuración de página que elijas es <a href="savingHome.html">guardada</a> con el archivo de la casa.</p>
+            </td>
+          </tr>
+          <tr valign="top">
+            <td width="16"><p>&#149;</p>
+            </td>
+            <td>
+              <p>El panel de vista preliminar puede ser ampliado.</p>
+            </td>
+          </tr>
+        </table>
+        </td>
+    </tr>
+  </table>
+</div>
+</div>
+</body>
+
+</html>
