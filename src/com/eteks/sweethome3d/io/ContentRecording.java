@@ -23,20 +23,21 @@ package com.eteks.sweethome3d.io;
  * Describes how {@linkplain com.eteks.sweethome3d.model.Content content} associated to a home should be managed during recording.
  * @author Emmanuel Puybaret
  */
-public enum ContentRecording {
-  /**
-   * Include all content objects referenced by a {@link com.eteks.sweethome3d.model.Home Home} instance.
-   */
-  INCLUDE_ALL_CONTENT,
-  /**
-   * Include content instances of <code>TemporaryURLContent</code> class referenced by a 
-   * {@link com.eteks.sweethome3d.model.Home Home} instance as well as the content already saved with it. 
-   */
-  INCLUDE_TEMPORARY_CONTENT,
-  /**
-   * Include no content instance referenced by a {@link com.eteks.sweethome3d.model.Home Home} instance.
-   * This should be used only if all the content objects reference external data which is always available 
-   * (with an URL for example). 
-   */
-  INCLUDE_NO_CONTENT
+public enum ContentRecording
+{
+	/**
+	 * Include all content objects referenced by a {@link com.eteks.sweethome3d.model.Home Home} instance.
+	 */
+	INCLUDE_ALL_CONTENT,
+	/**
+	 * Include content instances of <code>TemporaryURLContent</code> class referenced by a 
+	 * {@link com.eteks.sweethome3d.model.Home Home} instance as well as the content already saved with it. 
+	 */
+	INCLUDE_TEMPORARY_CONTENT,
+	/**
+	 * Include no content instance referenced by a {@link com.eteks.sweethome3d.model.Home Home} instance.
+	 * This should be used only if all the content objects reference external data which is always available 
+	 * (with an URL for example). 
+	 */
+	INCLUDE_NO_CONTENT
 }

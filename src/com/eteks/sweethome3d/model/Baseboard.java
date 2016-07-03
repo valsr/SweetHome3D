@@ -31,120 +31,135 @@ import java.util.List;
  * A baseboard associated to wall.
  * @author Emmanuel Puybaret
  */
-public class Baseboard implements Serializable {
-  private static final long serialVersionUID = 1L;
-  
-  private final float       thickness;
-  private final float       height;
-  private final Integer     color;
-  private final HomeTexture texture;
-  
-  private static final List<WeakReference<Baseboard>> baseboardsCache = new ArrayList<WeakReference<Baseboard>>(); 
-
-  /**
-   * Creates a baseboard.
-   */
-  public Baseboard(float thickness, float height, Integer color, HomeTexture texture) {
-    this(height, thickness, color, texture, true);
-  }
-
-  private Baseboard(float thickness, float height, Integer color, HomeTexture texture, boolean cached) {
-    this.height = height;
-    this.thickness = thickness;
-    this.color = color;
-    this.texture = texture;
-    
-    if (cached) {
-      baseboardsCache.add(new WeakReference<Baseboard>(this));
-    }
-  }
-
-  /**
-   * Reads properties and updates cache.
-   */
-  private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-    in.defaultReadObject();
-    
-    baseboardsCache.add(new WeakReference<Baseboard>(this));
-  }
-
-  /**
-   * Returns an instance of this class matching the given parameters.
-   */
-  public static Baseboard getInstance(float thickness, float height, 
-                                      Integer color, HomeTexture texture) {
-    Baseboard baseboard = new Baseboard(thickness, height, color, texture, false);
-    for (Iterator<WeakReference<Baseboard>> it = baseboardsCache.iterator(); it.hasNext(); ) {
-      WeakReference<Baseboard> ref = it.next();
-      Baseboard cachedBaseboard = ref.get();
-      if (cachedBaseboard == null) {
-        it.remove();
-      } else if (cachedBaseboard.equals(baseboard)) {
-        return baseboard;
-      }
-    }
-    baseboardsCache.add(new WeakReference<Baseboard>(baseboard));
-    return baseboard;
-  }
-
-  /**
-   * Returns the thickness of this baseboard.
-   */
-  public float getThickness() {
-    return this.thickness;
-  }
-
-  /**
-   * Returns the height of this baseboard. 
-   */
-  public float getHeight() {
-    return this.height;
-  }
-
-  /**
-   * Returns the color of this baseboard.
-   */
-  public Integer getColor() {
-    return this.color;
-  }
-
-  /**
-   * Returns the texture of this baseboard.
-   */
-  public HomeTexture getTexture() {
-    return this.texture;
-  }
-
-  /**
-   * Returns <code>true</code> if this baseboard is equal to <code>object</code>.
-   */
-  @Override
-  public boolean equals(Object object) {
-    if (object instanceof Baseboard) {
-      Baseboard baseboard = (Baseboard)object;
-      return baseboard.thickness == this.thickness
-          && baseboard.height == this.height
-          && (baseboard.color == this.color
-              || baseboard.color != null && baseboard.color.equals(this.color))
-          && (baseboard.texture == this.texture
-              || baseboard.texture != null && baseboard.texture.equals(this.texture));
-    }
-    return false;
-  }
-  
-  /**
-   * Returns a hash code for this baseboard.
-   */
-  @Override
-  public int hashCode() {
-    int hashCode = Float.floatToIntBits(this.thickness)
-        + Float.floatToIntBits(this.height);
-    if (this.color != null) {
-      hashCode += this.color.hashCode();
-    }
-    if (this.texture != null) {
-      hashCode += this.texture.hashCode();
-    }
-    return hashCode;
-  }
+public class Baseboard implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+	
+	private final float thickness;
+	private final float height;
+	private final Integer color;
+	private final HomeTexture texture;
+	
+	private static final List<WeakReference<Baseboard>> baseboardsCache = new ArrayList<WeakReference<Baseboard>>();
+	
+	/**
+	 * Creates a baseboard.
+	 */
+	public Baseboard(float thickness, float height, Integer color, HomeTexture texture)
+	{
+		this(height, thickness, color, texture, true);
+	}
+	
+	private Baseboard(float thickness, float height, Integer color, HomeTexture texture, boolean cached)
+	{
+		this.height = height;
+		this.thickness = thickness;
+		this.color = color;
+		this.texture = texture;
+		
+		if (cached)
+		{
+			baseboardsCache.add(new WeakReference<Baseboard>(this));
+		}
+	}
+	
+	/**
+	 * Reads properties and updates cache.
+	 */
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
+	{
+		in.defaultReadObject();
+		
+		baseboardsCache.add(new WeakReference<Baseboard>(this));
+	}
+	
+	/**
+	 * Returns an instance of this class matching the given parameters.
+	 */
+	public static Baseboard getInstance(float thickness, float height, Integer color, HomeTexture texture)
+	{
+		Baseboard baseboard = new Baseboard(thickness, height, color, texture, false);
+		for (Iterator<WeakReference<Baseboard>> it = baseboardsCache.iterator(); it.hasNext();)
+		{
+			WeakReference<Baseboard> ref = it.next();
+			Baseboard cachedBaseboard = ref.get();
+			if (cachedBaseboard == null)
+			{
+				it.remove();
+			}
+			else if (cachedBaseboard.equals(baseboard))
+			{
+				return baseboard;
+			}
+		}
+		baseboardsCache.add(new WeakReference<Baseboard>(baseboard));
+		return baseboard;
+	}
+	
+	/**
+	 * Returns the thickness of this baseboard.
+	 */
+	public float getThickness()
+	{
+		return this.thickness;
+	}
+	
+	/**
+	 * Returns the height of this baseboard. 
+	 */
+	public float getHeight()
+	{
+		return this.height;
+	}
+	
+	/**
+	 * Returns the color of this baseboard.
+	 */
+	public Integer getColor()
+	{
+		return this.color;
+	}
+	
+	/**
+	 * Returns the texture of this baseboard.
+	 */
+	public HomeTexture getTexture()
+	{
+		return this.texture;
+	}
+	
+	/**
+	 * Returns <code>true</code> if this baseboard is equal to <code>object</code>.
+	 */
+	@Override
+	public boolean equals(Object object)
+	{
+		if (object instanceof Baseboard)
+		{
+			Baseboard baseboard = (Baseboard) object;
+			return baseboard.thickness == this.thickness && baseboard.height == this.height
+					&& (baseboard.color == this.color || baseboard.color != null && baseboard.color.equals(this.color))
+					&& (baseboard.texture == this.texture
+							|| baseboard.texture != null && baseboard.texture.equals(this.texture));
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns a hash code for this baseboard.
+	 */
+	@Override
+	public int hashCode()
+	{
+		int hashCode = Float.floatToIntBits(this.thickness) + Float.floatToIntBits(this.height);
+		if (this.color != null)
+		{
+			hashCode += this.color.hashCode();
+		}
+		if (this.texture != null)
+		{
+			hashCode += this.texture.hashCode();
+		}
+		return hashCode;
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * RecorderException.java 30 août 2006
+ * RecorderException.java 30 ao�t 2006
  *
  * Sweet Home 3D, Copyright (c) 2006 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *
@@ -23,28 +23,32 @@ package com.eteks.sweethome3d.model;
  * Exception thrown by methods that access to data in IO layer.
  * @author Emmanuel Puybaret
  */
-public class RecorderException extends Exception {
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * Creates a default <code>RecorderException</code>.
-   */
-  public RecorderException() {
-    super();
-  }
-
-  /**
-   * Creates a <code>RecorderException</code> from its message.
-   */
-  public RecorderException(String message) {
-    super(message);
-  }
-
-  /**
-   * Creates a <code>RecorderException</code> with its message 
-   * and the internal cause that initiated this exception.
-   */
-  public RecorderException(String message, Throwable cause) {
-    super(message, cause);
-  }
+public class RecorderException extends Exception
+{
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Creates a default <code>RecorderException</code>.
+	 */
+	public RecorderException()
+	{
+		super();
+	}
+	
+	/**
+	 * Creates a <code>RecorderException</code> from its message.
+	 */
+	public RecorderException(String message)
+	{
+		super(message);
+	}
+	
+	/**
+	 * Creates a <code>RecorderException</code> with its message 
+	 * and the internal cause that initiated this exception.
+	 */
+	public RecorderException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
 }

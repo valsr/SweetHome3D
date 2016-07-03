@@ -26,58 +26,64 @@ import java.io.Serializable;
  * @since 4.0
  * @author Emmanuel Puybaret
  */
-public class HomeMaterial implements Serializable {
-  private static final long serialVersionUID = 1L;
-  
-  private final String      name;
-  private final Integer     color;
-  private final HomeTexture texture;
-  private final Float       shininess;
-  
-  /**
-   * Creates a material instance from parameters.
-   * @since 4.0
-   */
-  public HomeMaterial(String name, Integer color, HomeTexture texture, Float shininess) {
-    this.name = name;
-    this.color = color;
-    this.texture = texture;
-    this.shininess = shininess;
-  }
-
-  /**
-   * Returns the name of this material.
-   * @return the name of the material or <code>null</code> if material has no name.
-   * @since 4.0
-   */
-  public String getName() {
-    return this.name;
-  }
-  
-  /**
-   * Returns the color of this material.
-   * @return the color of the material as RGB code or <code>null</code> if material color is unchanged.
-   * @since 4.0
-   */
-  public Integer getColor() {
-    return this.color;
-  }
-  
-  /**
-   * Returns the texture of this material.
-   * @return the texture of the material or <code>null</code> if material texture is unchanged.
-   * @since 4.0
-   */
-  public HomeTexture getTexture() {
-    return this.texture;
-  }
-
-  /**
-   * Returns the shininess of this material.
-   * @return a value between 0 (matt) and 1 (very shiny) or <code>null</code> if material shininess is unchanged.
-   * @since 4.0
-   */
-  public Float getShininess() {
-    return this.shininess;
-  }
+public class HomeMaterial implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+	
+	private final String name;
+	private final Integer color;
+	private final HomeTexture texture;
+	private final Float shininess;
+	
+	/**
+	 * Creates a material instance from parameters.
+	 * @since 4.0
+	 */
+	public HomeMaterial(String name, Integer color, HomeTexture texture, Float shininess)
+	{
+		this.name = name;
+		this.color = color;
+		this.texture = texture;
+		this.shininess = shininess;
+	}
+	
+	/**
+	 * Returns the name of this material.
+	 * @return the name of the material or <code>null</code> if material has no name.
+	 * @since 4.0
+	 */
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	/**
+	 * Returns the color of this material.
+	 * @return the color of the material as RGB code or <code>null</code> if material color is unchanged.
+	 * @since 4.0
+	 */
+	public Integer getColor()
+	{
+		return this.color;
+	}
+	
+	/**
+	 * Returns the texture of this material.
+	 * @return the texture of the material or <code>null</code> if material texture is unchanged.
+	 * @since 4.0
+	 */
+	public HomeTexture getTexture()
+	{
+		return this.texture;
+	}
+	
+	/**
+	 * Returns the shininess of this material.
+	 * @return a value between 0 (matt) and 1 (very shiny) or <code>null</code> if material shininess is unchanged.
+	 * @since 4.0
+	 */
+	public Float getShininess()
+	{
+		return this.shininess;
+	}
 }

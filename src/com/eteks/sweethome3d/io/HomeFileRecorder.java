@@ -42,206 +42,265 @@ import com.eteks.sweethome3d.tools.OperatingSystem;
  * {@link DefaultHomeInputStream}.
  * @author Emmanuel Puybaret
  */
-public class HomeFileRecorder implements HomeRecorder {
-  private final int             compressionLevel;
-  private final boolean         includeOnlyTemporaryContent;
-  private final UserPreferences preferences;
-  private final boolean         preferPreferencesContent;
-  
-  /**
-   * Creates a home recorder able to write and read homes in uncompressed files. 
-   */
-  public HomeFileRecorder() {
-    this(0);
-  }
-
-  /**
-   * Creates a home recorder able to write and read homes in files compressed 
-   * at a level from 0 to 9. 
-   * @param compressionLevel 0 (uncompressed) to 9 (compressed).
-   */
-  public HomeFileRecorder(int compressionLevel) {
-    this(compressionLevel, false);
-  }
-
-  /**
-   * Creates a home recorder able to write and read homes in files compressed 
-   * at a level from 0 to 9. 
-   * @param compressionLevel 0-9
-   * @param includeOnlyTemporaryContent if <code>true</code>, content instances of 
-   *            <code>TemporaryURLContent</code> class referenced by the saved home 
-   *            as well as the content previously saved with it will be written. 
-   *            If <code>false</code>, all the content instances 
-   *            referenced by the saved home will be written in the zip stream.  
-   */
-  public HomeFileRecorder(int     compressionLevel, 
-                          boolean includeOnlyTemporaryContent) {
-    this(compressionLevel, includeOnlyTemporaryContent, null, false);    
-  }
-
-  /**
-   * Creates a home recorder able to write and read homes in files compressed 
-   * at a level from 0 to 9. 
-   * @param compressionLevel 0-9
-   * @param includeOnlyTemporaryContent if <code>true</code>, content instances of 
-   *            <code>TemporaryURLContent</code> class referenced by the saved home 
-   *            as well as the content previously saved with it will be written. 
-   *            If <code>false</code>, all the content instances 
-   *            referenced by the saved home will be written in the zip stream. 
-   * @param preferences If not <code>null</code>, the furniture and textures contents 
-   *            it references might be used to replace the one of read homes 
-   *            when they are equal.
-   * @param preferPreferencesContent If <code>true</code>, the furniture and textures contents 
-   *            referenced by <code>preferences</code> will replace the one of read homes 
-   *            as often as possible when they are equal. Otherwise, these contents will be 
-   *            used only to replace damaged content that might be found in read home files.
-   */
-  public HomeFileRecorder(int             compressionLevel, 
-                          boolean         includeOnlyTemporaryContent,
-                          UserPreferences preferences,
-                          boolean         preferPreferencesContent) {
-    this.compressionLevel = compressionLevel;
-    this.includeOnlyTemporaryContent = includeOnlyTemporaryContent;
-    this.preferences = preferences;
-    this.preferPreferencesContent = preferPreferencesContent;
-  }
-
-  /**
-   * Writes home data.
-   * @throws RecorderException if a problem occurred while writing home.
-   */
-  public void writeHome(Home home, String name) throws RecorderException {
-    File homeFile = new File(name);
-    if (homeFile.exists()
-        && !homeFile.canWrite()) {
-      throw new RecorderException("Can't write over file " + name);
-    }
-    
-    DefaultHomeOutputStream homeOut = null;
-    File tempFile = null;
-    try {
-      // Open a stream on a temporary file 
-      tempFile = OperatingSystem.createTemporaryFile("save", ".sweethome3d");
-      homeOut = new DefaultHomeOutputStream(new FileOutputStream(tempFile), 
-          this.compressionLevel, this.includeOnlyTemporaryContent);
-      // Write home with HomeOuputStream
-      homeOut.writeHome(home);
-    } catch (InterruptedIOException ex) {
-      throw new InterruptedRecorderException("Save " + name + " interrupted");
-    } catch (IOException ex) {
-      throw new RecorderException("Can't save home " + name, ex);
-    } finally {
-      try {
-        if (homeOut != null) {
-          homeOut.close();
-        }
-      } catch (IOException ex) {
-        throw new RecorderException("Can't close temporary file " + name, ex);
-      }
-    }
-
-    try {
-      // Check disk space under Java 1.6
-      long usableSpace = (Long)File.class.getMethod("getUsableSpace").invoke(homeFile.getParentFile());
-      long requiredSpace = tempFile.length();
-      if (homeFile.exists()) {
-        requiredSpace -= homeFile.length();
-      }
-      if (usableSpace != 0
-          && usableSpace < requiredSpace) {
-        throw new NotEnoughSpaceRecorderException("Not enough disk space to save file " + name, requiredSpace - usableSpace);
-      }
-    } catch (NoSuchMethodException ex) {
-      // This method doesn't exist under Java 5
-    } catch (NotEnoughSpaceRecorderException ex) {
-      if (tempFile != null) {
-        tempFile.delete();
-      }
-      throw ex;
-    } catch (Exception ex) {
-      // Too bad let's not check and take the risk 
-      ex.printStackTrace();
-    }    
-    
-    // Open destination file
-    OutputStream out;
-    try {
-      out = new FileOutputStream(homeFile);
-    } catch (FileNotFoundException ex) {
-      if (tempFile != null) {
-        tempFile.delete();
-      }
-      throw new RecorderException("Can't save file " + name, ex);
-    }
-    
-    // Copy temporary file to home file
-    // Overwriting home file will ensure that its rights are kept
-    byte [] buffer = new byte [8192];
-    InputStream in = null;
-    try {
-      in = new FileInputStream(tempFile);          
-      int size; 
-      while ((size = in.read(buffer)) != -1) {
-        out.write(buffer, 0, size);
-      }
-    } catch (IOException ex) { 
-      throw new RecorderException("Can't copy file " + tempFile + " to " + name);
-    } finally {
-      try {
-        if (out != null) {          
-          out.close();
-        }
-      } catch (IOException ex) {
-        throw new RecorderException("Can't close file " + name, ex);
-      }
-      try {
-        if (in != null) {          
-          in.close();
-          tempFile.delete();
-        }
-      } catch (IOException ex) {
-        // Forget exception
-      }
-    }
-  }
-  
-  /**
-   * Returns a home instance read from its file <code>name</code>.
-   * @throws RecorderException if a problem occurred while reading home, 
-   *   or if file <code>name</code> doesn't exist.
-   */
-  public Home readHome(String name) throws RecorderException {
-    DefaultHomeInputStream in = null;
-    try {
-      // Open a stream on file
-      in = new DefaultHomeInputStream(new FileInputStream(name), ContentRecording.INCLUDE_ALL_CONTENT, 
-          this.preferences, this.preferPreferencesContent);
-      // Read home with HomeInputStream
-      Home home = in.readHome();
-      return home;
-    } catch (InterruptedIOException ex) {
-      throw new InterruptedRecorderException("Read " + name + " interrupted");
-    } catch (DamagedHomeIOException ex) {
-      throw new DamagedHomeRecorderException(ex.getDamagedHome(), ex.getInvalidContent());
-    } catch (IOException ex) {
-      throw new RecorderException("Can't read home from " + name, ex);
-    } catch (ClassNotFoundException ex) {
-      throw new RecorderException("Missing classes to read home from " + name, ex);
-    } finally {
-      try {
-        if (in != null) {
-          in.close();
-        }
-      } catch (IOException ex) {
-        throw new RecorderException("Can't close file " + name, ex);
-      }
-    }
-  }
-
-  /**
-   * Returns <code>true</code> if the file <code>name</code> exists.
-   */
-  public boolean exists(String name) throws RecorderException {
-    return new File(name).exists();
-  }
+public class HomeFileRecorder implements HomeRecorder
+{
+	private final int compressionLevel;
+	private final boolean includeOnlyTemporaryContent;
+	private final UserPreferences preferences;
+	private final boolean preferPreferencesContent;
+	
+	/**
+	 * Creates a home recorder able to write and read homes in uncompressed files. 
+	 */
+	public HomeFileRecorder()
+	{
+		this(0);
+	}
+	
+	/**
+	 * Creates a home recorder able to write and read homes in files compressed 
+	 * at a level from 0 to 9. 
+	 * @param compressionLevel 0 (uncompressed) to 9 (compressed).
+	 */
+	public HomeFileRecorder(int compressionLevel)
+	{
+		this(compressionLevel, false);
+	}
+	
+	/**
+	 * Creates a home recorder able to write and read homes in files compressed 
+	 * at a level from 0 to 9. 
+	 * @param compressionLevel 0-9
+	 * @param includeOnlyTemporaryContent if <code>true</code>, content instances of 
+	 *            <code>TemporaryURLContent</code> class referenced by the saved home 
+	 *            as well as the content previously saved with it will be written. 
+	 *            If <code>false</code>, all the content instances 
+	 *            referenced by the saved home will be written in the zip stream.  
+	 */
+	public HomeFileRecorder(int compressionLevel, boolean includeOnlyTemporaryContent)
+	{
+		this(compressionLevel, includeOnlyTemporaryContent, null, false);
+	}
+	
+	/**
+	 * Creates a home recorder able to write and read homes in files compressed 
+	 * at a level from 0 to 9. 
+	 * @param compressionLevel 0-9
+	 * @param includeOnlyTemporaryContent if <code>true</code>, content instances of 
+	 *            <code>TemporaryURLContent</code> class referenced by the saved home 
+	 *            as well as the content previously saved with it will be written. 
+	 *            If <code>false</code>, all the content instances 
+	 *            referenced by the saved home will be written in the zip stream. 
+	 * @param preferences If not <code>null</code>, the furniture and textures contents 
+	 *            it references might be used to replace the one of read homes 
+	 *            when they are equal.
+	 * @param preferPreferencesContent If <code>true</code>, the furniture and textures contents 
+	 *            referenced by <code>preferences</code> will replace the one of read homes 
+	 *            as often as possible when they are equal. Otherwise, these contents will be 
+	 *            used only to replace damaged content that might be found in read home files.
+	 */
+	public HomeFileRecorder(int compressionLevel, boolean includeOnlyTemporaryContent, UserPreferences preferences,
+			boolean preferPreferencesContent)
+	{
+		this.compressionLevel = compressionLevel;
+		this.includeOnlyTemporaryContent = includeOnlyTemporaryContent;
+		this.preferences = preferences;
+		this.preferPreferencesContent = preferPreferencesContent;
+	}
+	
+	/**
+	 * Writes home data.
+	 * @throws RecorderException if a problem occurred while writing home.
+	 */
+	public void writeHome(Home home, String name) throws RecorderException
+	{
+		File homeFile = new File(name);
+		if (homeFile.exists() && !homeFile.canWrite())
+		{
+			throw new RecorderException("Can't write over file " + name);
+		}
+		
+		DefaultHomeOutputStream homeOut = null;
+		File tempFile = null;
+		try
+		{
+			// Open a stream on a temporary file 
+			tempFile = OperatingSystem.createTemporaryFile("save", ".sweethome3d");
+			homeOut = new DefaultHomeOutputStream(new FileOutputStream(tempFile), this.compressionLevel,
+					this.includeOnlyTemporaryContent);
+			// Write home with HomeOuputStream
+			homeOut.writeHome(home);
+		}
+		catch (InterruptedIOException ex)
+		{
+			throw new InterruptedRecorderException("Save " + name + " interrupted");
+		}
+		catch (IOException ex)
+		{
+			throw new RecorderException("Can't save home " + name, ex);
+		}
+		finally
+		{
+			try
+			{
+				if (homeOut != null)
+				{
+					homeOut.close();
+				}
+			}
+			catch (IOException ex)
+			{
+				throw new RecorderException("Can't close temporary file " + name, ex);
+			}
+		}
+		
+		try
+		{
+			// Check disk space under Java 1.6
+			long usableSpace = (Long) File.class.getMethod("getUsableSpace").invoke(homeFile.getParentFile());
+			long requiredSpace = tempFile.length();
+			if (homeFile.exists())
+			{
+				requiredSpace -= homeFile.length();
+			}
+			if (usableSpace != 0 && usableSpace < requiredSpace)
+			{
+				throw new NotEnoughSpaceRecorderException("Not enough disk space to save file " + name,
+						requiredSpace - usableSpace);
+			}
+		}
+		catch (NoSuchMethodException ex)
+		{
+			// This method doesn't exist under Java 5
+		}
+		catch (NotEnoughSpaceRecorderException ex)
+		{
+			if (tempFile != null)
+			{
+				tempFile.delete();
+			}
+			throw ex;
+		}
+		catch (Exception ex)
+		{
+			// Too bad let's not check and take the risk 
+			ex.printStackTrace();
+		}
+		
+		// Open destination file
+		OutputStream out;
+		try
+		{
+			out = new FileOutputStream(homeFile);
+		}
+		catch (FileNotFoundException ex)
+		{
+			if (tempFile != null)
+			{
+				tempFile.delete();
+			}
+			throw new RecorderException("Can't save file " + name, ex);
+		}
+		
+		// Copy temporary file to home file
+		// Overwriting home file will ensure that its rights are kept
+		byte[] buffer = new byte[8192];
+		InputStream in = null;
+		try
+		{
+			in = new FileInputStream(tempFile);
+			int size;
+			while ((size = in.read(buffer)) != -1)
+			{
+				out.write(buffer, 0, size);
+			}
+		}
+		catch (IOException ex)
+		{
+			throw new RecorderException("Can't copy file " + tempFile + " to " + name);
+		}
+		finally
+		{
+			try
+			{
+				if (out != null)
+				{
+					out.close();
+				}
+			}
+			catch (IOException ex)
+			{
+				throw new RecorderException("Can't close file " + name, ex);
+			}
+			try
+			{
+				if (in != null)
+				{
+					in.close();
+					tempFile.delete();
+				}
+			}
+			catch (IOException ex)
+			{
+				// Forget exception
+			}
+		}
+	}
+	
+	/**
+	 * Returns a home instance read from its file <code>name</code>.
+	 * @throws RecorderException if a problem occurred while reading home, 
+	 *   or if file <code>name</code> doesn't exist.
+	 */
+	public Home readHome(String name) throws RecorderException
+	{
+		DefaultHomeInputStream in = null;
+		try
+		{
+			// Open a stream on file
+			in = new DefaultHomeInputStream(new FileInputStream(name), ContentRecording.INCLUDE_ALL_CONTENT,
+					this.preferences, this.preferPreferencesContent);
+			// Read home with HomeInputStream
+			Home home = in.readHome();
+			return home;
+		}
+		catch (InterruptedIOException ex)
+		{
+			throw new InterruptedRecorderException("Read " + name + " interrupted");
+		}
+		catch (DamagedHomeIOException ex)
+		{
+			throw new DamagedHomeRecorderException(ex.getDamagedHome(), ex.getInvalidContent());
+		}
+		catch (IOException ex)
+		{
+			throw new RecorderException("Can't read home from " + name, ex);
+		}
+		catch (ClassNotFoundException ex)
+		{
+			throw new RecorderException("Missing classes to read home from " + name, ex);
+		}
+		finally
+		{
+			try
+			{
+				if (in != null)
+				{
+					in.close();
+				}
+			}
+			catch (IOException ex)
+			{
+				throw new RecorderException("Can't close file " + name, ex);
+			}
+		}
+	}
+	
+	/**
+	 * Returns <code>true</code> if the file <code>name</code> exists.
+	 */
+	public boolean exists(String name) throws RecorderException
+	{
+		return new File(name).exists();
+	}
 }

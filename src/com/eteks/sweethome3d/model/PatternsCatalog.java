@@ -28,48 +28,56 @@ import java.util.List;
  * @author Emmanuel Puybaret
  * @since  2.0
  */
-public class PatternsCatalog {
-  private List<TextureImage> patterns;
-  
-  /**
-   * Creates a patterns catalog.
-   */
-  public PatternsCatalog(List<TextureImage> patterns) {
-    this.patterns = new ArrayList<TextureImage>(patterns);
-  }
-
-  /**
-   * Returns the patterns list.
-   * @return an unmodifiable list of furniture.
-   */
-  public List<TextureImage> getPatterns() {
-    return Collections.unmodifiableList(this.patterns);
-  }
-
-  /**
-   * Returns the count of patterns in this category.
-   */
-  public int getPatternsCount() {
-    return this.patterns.size();
-  }
-
-  /**
-   * Returns the pattern at a given <code>index</code>.
-   */
-  public TextureImage getPattern(int index) {
-    return this.patterns.get(index);
-  }
-
-  /**
-   * Returns the pattern with a given <code>name</code>.
-   * @throws IllegalArgumentException if no pattern with the given <code>name</code> exists
-   */
-  public TextureImage getPattern(String name) {
-    for (TextureImage pattern : patterns) {
-      if (name.equals(pattern.getName())) {
-        return pattern;
-      }
-    }
-    throw new IllegalArgumentException("No pattern with name " + name);
-  }
+public class PatternsCatalog
+{
+	private List<TextureImage> patterns;
+	
+	/**
+	 * Creates a patterns catalog.
+	 */
+	public PatternsCatalog(List<TextureImage> patterns)
+	{
+		this.patterns = new ArrayList<TextureImage>(patterns);
+	}
+	
+	/**
+	 * Returns the patterns list.
+	 * @return an unmodifiable list of furniture.
+	 */
+	public List<TextureImage> getPatterns()
+	{
+		return Collections.unmodifiableList(this.patterns);
+	}
+	
+	/**
+	 * Returns the count of patterns in this category.
+	 */
+	public int getPatternsCount()
+	{
+		return this.patterns.size();
+	}
+	
+	/**
+	 * Returns the pattern at a given <code>index</code>.
+	 */
+	public TextureImage getPattern(int index)
+	{
+		return this.patterns.get(index);
+	}
+	
+	/**
+	 * Returns the pattern with a given <code>name</code>.
+	 * @throws IllegalArgumentException if no pattern with the given <code>name</code> exists
+	 */
+	public TextureImage getPattern(String name)
+	{
+		for (TextureImage pattern : patterns)
+		{
+			if (name.equals(pattern.getName()))
+			{
+				return pattern;
+			}
+		}
+		throw new IllegalArgumentException("No pattern with name " + name);
+	}
 }

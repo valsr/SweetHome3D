@@ -1,5 +1,5 @@
 /*
- * Object3DBranchFactory.java 8 févr. 2011
+ * Object3DBranchFactory.java 8 f�vr. 2011
  *
  * Sweet Home 3D, Copyright (c) 2011 Emmanuel PUYBARET / eTeks <info@eteks.com>
  *
@@ -31,21 +31,32 @@ import com.eteks.sweethome3d.viewcontroller.Object3DFactory;
  * A factory able to create instances of {@link Object3DBranch Object3DBranch} class.
  * @author Emmanuel Puybaret
  */
-public class Object3DBranchFactory implements Object3DFactory {
-  /**
-   * Returns the 3D object matching a given <code>item</code>.
-   */
-  public Object createObject3D(Home home, Selectable item, boolean waitForLoading) {
-    if (item instanceof HomePieceOfFurniture) {
-      return new HomePieceOfFurniture3D((HomePieceOfFurniture)item, home, true, waitForLoading);
-    } else if (item instanceof Wall) {
-      return new Wall3D((Wall)item, home, true, waitForLoading);
-    } else if (item instanceof Room) {
-      return new Room3D((Room)item, home, false, waitForLoading);
-    } else if (item instanceof Label) {
-      return new Label3D((Label)item, home, waitForLoading);
-    } else {
-      return null;
-    }  
-  }
+public class Object3DBranchFactory implements Object3DFactory
+{
+	/**
+	 * Returns the 3D object matching a given <code>item</code>.
+	 */
+	public Object createObject3D(Home home, Selectable item, boolean waitForLoading)
+	{
+		if (item instanceof HomePieceOfFurniture)
+		{
+			return new HomePieceOfFurniture3D((HomePieceOfFurniture) item, home, true, waitForLoading);
+		}
+		else if (item instanceof Wall)
+		{
+			return new Wall3D((Wall) item, home, true, waitForLoading);
+		}
+		else if (item instanceof Room)
+		{
+			return new Room3D((Room) item, home, false, waitForLoading);
+		}
+		else if (item instanceof Label)
+		{
+			return new Label3D((Label) item, home, waitForLoading);
+		}
+		else
+		{
+			return null;
+		}
+	}
 }

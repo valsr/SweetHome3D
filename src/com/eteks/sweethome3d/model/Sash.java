@@ -26,68 +26,72 @@ import java.io.Serializable;
  * @author Emmanuel Puybaret
  * @since  1.7
  */
-public class Sash implements Serializable {
-  private static final long serialVersionUID = 1L;
-  
-  private final float xAxis;
-  private final float yAxis;
-  private final float width;
-  private final float startAngle;
-  private final float endAngle;
-  
-  /**
-   * Creates a window sash.
-   */
-  public Sash(float xAxis, float yAxis, 
-              float width, 
-              float startAngle,
-              float endAngle) {
-    this.xAxis = xAxis;
-    this.yAxis = yAxis;
-    this.width = width;
-    this.startAngle = startAngle;
-    this.endAngle = endAngle;
-  }
-
-  /**
-   * Returns the abscissa of the axis around which this sash turns, relatively to
-   * the top left corner of the window or the door.
-   * @return a value in percentage of the width of the door or the window.
-   */
-  public float getXAxis() {
-    return this.xAxis;
-  }
-  
-  /**
-   * Returns the ordinate of the axis around which this sash turns, relatively to
-   * the top left corner of the window or the door.
-   * @return a value in percentage of the depth of the door or the window.
-   */
-  public float getYAxis() {
-    return this.yAxis;
-  }
-  
-  /**
-   * Returns the width of this sash.
-   * @return a value in percentage of the width of the door or the window.
-   */
-  public float getWidth() {
-    return this.width;
-  }
-  
-  /**
-   * Returns the opening start angle of this sash.
-   * @return an angle in radians.
-   */
-  public float getStartAngle() {
-    return this.startAngle;
-  }    
-
-  /**
-   * Returns the opening end angle of this sash.
-   * @return an angle in radians.
-   */
-  public float getEndAngle() {
-    return this.endAngle;
-  }    
+public class Sash implements Serializable
+{
+	private static final long serialVersionUID = 1L;
+	
+	private final float xAxis;
+	private final float yAxis;
+	private final float width;
+	private final float startAngle;
+	private final float endAngle;
+	
+	/**
+	 * Creates a window sash.
+	 */
+	public Sash(float xAxis, float yAxis, float width, float startAngle, float endAngle)
+	{
+		this.xAxis = xAxis;
+		this.yAxis = yAxis;
+		this.width = width;
+		this.startAngle = startAngle;
+		this.endAngle = endAngle;
+	}
+	
+	/**
+	 * Returns the abscissa of the axis around which this sash turns, relatively to
+	 * the top left corner of the window or the door.
+	 * @return a value in percentage of the width of the door or the window.
+	 */
+	public float getXAxis()
+	{
+		return this.xAxis;
+	}
+	
+	/**
+	 * Returns the ordinate of the axis around which this sash turns, relatively to
+	 * the top left corner of the window or the door.
+	 * @return a value in percentage of the depth of the door or the window.
+	 */
+	public float getYAxis()
+	{
+		return this.yAxis;
+	}
+	
+	/**
+	 * Returns the width of this sash.
+	 * @return a value in percentage of the width of the door or the window.
+	 */
+	public float getWidth()
+	{
+		return this.width;
+	}
+	
+	/**
+	 * Returns the opening start angle of this sash.
+	 * @return an angle in radians.
+	 */
+	public float getStartAngle()
+	{
+		return this.startAngle;
+	}
+	
+	/**
+	 * Returns the opening end angle of this sash.
+	 * @return an angle in radians.
+	 */
+	public float getEndAngle()
+	{
+		return this.endAngle;
+	}
 }

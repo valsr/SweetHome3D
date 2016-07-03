@@ -33,61 +33,69 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * A MVC controller for the home view able to manage plug-ins.
  * @author Emmanuel Puybaret
  */
-public class HomePluginController extends HomeController {
-  private final Home                  home;
-  private final HomeApplication       application;
-  private final PluginManager         pluginManager;
-
-  /**
-   * Creates the controller of home view.
-   * @param home the home edited by this controller and its view.
-   * @param application the instance of current application.
-   * @param viewFactory a factory able to create views.
-   * @param contentManager the content manager of the application.
-   * @param pluginManager  the plug-in manager of the application.
-   */
-  public HomePluginController(Home home, 
-                              HomeApplication application,
-                              ViewFactory    viewFactory, 
-                              ContentManager contentManager, 
-                              PluginManager pluginManager) {
-    super(home, application, viewFactory, contentManager);
-    this.home = home;
-    this.application = application;
-    this.pluginManager = pluginManager;
-  }
-
-  /**
-   * Returns the plug-ins available with this controller.
-   */
-  public List<Plugin> getPlugins() {
-    if (this.application != null && this.pluginManager != null) {
-      // Retrieve home plug-ins
-      return this.pluginManager.getPlugins(
-          this.application, this.home, this.application.getUserPreferences(), this, getUndoableEditSupport());
-    } else {
-      List<Plugin> plugins = Collections.emptyList();
-      return plugins;
-    }
-  }
-
-  /**
-   * Imports the plugin at the given location.
-   */
-  public void importPlugin(String pluginLocation) {
-    if (this.pluginManager != null) {
-      try {
-        if (!this.pluginManager.pluginExists(pluginLocation) 
-            || getView().confirmReplacePlugin(pluginLocation)) {
-          this.pluginManager.addPlugin(pluginLocation);
-          getView().showMessage(this.application.getUserPreferences().getLocalizedString(HomeController.class, 
-              "importedPluginMessage"));
-        }
-      } catch (RecorderException ex) {
-        String message = this.application.getUserPreferences().getLocalizedString(HomeController.class, 
-            "importPluginError", pluginLocation);
-        getView().showError(message);
-      }
-    }
-  }
+public class HomePluginController extends HomeController
+{
+	private final Home home;
+	private final HomeApplication application;
+	private final PluginManager pluginManager;
+	
+	/**
+	 * Creates the controller of home view.
+	 * @param home the home edited by this controller and its view.
+	 * @param application the instance of current application.
+	 * @param viewFactory a factory able to create views.
+	 * @param contentManager the content manager of the application.
+	 * @param pluginManager  the plug-in manager of the application.
+	 */
+	public HomePluginController(Home home, HomeApplication application, ViewFactory viewFactory,
+			ContentManager contentManager, PluginManager pluginManager)
+	{
+		super(home, application, viewFactory, contentManager);
+		this.home = home;
+		this.application = application;
+		this.pluginManager = pluginManager;
+	}
+	
+	/**
+	 * Returns the plug-ins available with this controller.
+	 */
+	public List<Plugin> getPlugins()
+	{
+		if (this.application != null && this.pluginManager != null)
+		{
+			// Retrieve home plug-ins
+			return this.pluginManager.getPlugins(this.application, this.home, this.application.getUserPreferences(),
+					this, getUndoableEditSupport());
+		}
+		else
+		{
+			List<Plugin> plugins = Collections.emptyList();
+			return plugins;
+		}
+	}
+	
+	/**
+	 * Imports the plugin at the given location.
+	 */
+	public void importPlugin(String pluginLocation)
+	{
+		if (this.pluginManager != null)
+		{
+			try
+			{
+				if (!this.pluginManager.pluginExists(pluginLocation) || getView().confirmReplacePlugin(pluginLocation))
+				{
+					this.pluginManager.addPlugin(pluginLocation);
+					getView().showMessage(this.application.getUserPreferences().getLocalizedString(HomeController.class,
+							"importedPluginMessage"));
+				}
+			}
+			catch (RecorderException ex)
+			{
+				String message = this.application.getUserPreferences().getLocalizedString(HomeController.class,
+						"importPluginError", pluginLocation);
+				getView().showError(message);
+			}
+		}
+	}
 }

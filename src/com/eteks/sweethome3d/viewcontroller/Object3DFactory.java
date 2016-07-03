@@ -26,12 +26,13 @@ import com.eteks.sweethome3d.model.Selectable;
  * A factory that specifies how to create the 3D objects from Sweet Home 3D model objects. 
  * @author Emmanuel Puybaret
  */
-public interface Object3DFactory {
-  /**
-   * Returns the 3D object matching a given <code>item</code>.
-   * @param home           the home of an item
-   * @param item           a selectable item of a home
-   * @param waitForLoading if <code>true</code> all resources used by the returned object should be available
-   */
-  public abstract Object createObject3D(Home home, Selectable item, boolean waitForLoading);
+public interface Object3DFactory
+{
+	/**
+	 * Returns the 3D object matching a given <code>item</code>.
+	 * @param home           the home of an item
+	 * @param item           a selectable item of a home
+	 * @param waitForLoading if <code>true</code> all resources used by the returned object should be available
+	 */
+	public abstract Object createObject3D(Home home, Selectable item, boolean waitForLoading);
 }

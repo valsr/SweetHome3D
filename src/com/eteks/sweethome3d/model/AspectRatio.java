@@ -23,25 +23,23 @@ package com.eteks.sweethome3d.model;
  * The aspect ratio of pictures.
  * @since 2.0
  */
-public enum AspectRatio {
-  FREE_RATIO(null), 
-  VIEW_3D_RATIO(null), 
-  RATIO_4_3(4f / 3), 
-  RATIO_3_2(1.5f), 
-  RATIO_16_9(16f / 9), 
-  RATIO_2_1(2f / 1f), 
-  SQUARE_RATIO(1f);
-  
-  private final Float value;
-  
-  private AspectRatio(Float value) {
-    this.value = value;
-  }    
-  
-  /**
-   * Returns the value of this aspect ratio (width / height) or <code>null</code> if it's not known.
-   */
-  public Float getValue() {
-    return value;
-  }
+public enum AspectRatio
+{
+	FREE_RATIO(null), VIEW_3D_RATIO(null), RATIO_4_3(4f / 3), RATIO_3_2(1.5f), RATIO_16_9(16f / 9), RATIO_2_1(
+			2f / 1f), SQUARE_RATIO(1f);
+	
+	private final Float value;
+	
+	private AspectRatio(Float value)
+	{
+		this.value = value;
+	}
+	
+	/**
+	 * Returns the value of this aspect ratio (width / height) or <code>null</code> if it's not known.
+	 */
+	public Float getValue()
+	{
+		return value;
+	}
 }

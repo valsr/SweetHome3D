@@ -27,10 +27,11 @@ import java.io.Serializable;
  * Content for files, images...
  * @author Emmanuel Puybaret
  */
-public interface Content extends Serializable {
-  /**
-   * Returns an input stream to a content.
-   * @throws IOException If the input stream can't be opened.
-   */
-  InputStream openStream() throws IOException;
+public interface Content extends Serializable
+{
+	/**
+	 * Returns an input stream to a content.
+	 * @throws IOException If the input stream can't be opened.
+	 */
+	InputStream openStream() throws IOException;
 }

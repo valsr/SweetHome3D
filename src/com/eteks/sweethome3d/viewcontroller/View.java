@@ -23,5 +23,5 @@ package com.eteks.sweethome3d.viewcontroller;
  * An MVC view created and controlled by a controller.
  * @author Emmanuel Puybaret
  */
-public interface View {
-}
+public interface View
+{}

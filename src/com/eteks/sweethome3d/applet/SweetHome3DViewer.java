@@ -79,148 +79,157 @@ import com.eteks.sweethome3d.tools.ExtensionsClassLoader;
  *     
  * @author Emmanuel Puybaret
  */
-public class SweetHome3DViewer extends JApplet {
-  private Object appletApplication;
-  
-  public void init() {
-    if (!isJava5OrSuperior()) {
-      showError(getLocalizedString("requirementsMessage"));
-    } else {
-      createAppletApplication();
-    }
-  }
-
-  public void destroy() {
-    if (this.appletApplication != null) {
-      try {
-        Method destroyMethod = this.appletApplication.getClass().getMethod("destroy", new Class [0]);
-        destroyMethod.invoke(this.appletApplication, new Object [0]);
-      } catch (Exception ex) {
-        // Can't do better than print stack trace when applet is destroyed
-        ex.printStackTrace();
-      }
-    }
-    this.appletApplication = null;
-    System.gc();
-  }
-  
-  /**
-   * Returns <code>true</code> if current JVM version is 5+. 
-   */
-  private boolean isJava5OrSuperior() {
-    String javaVersion = System.getProperty("java.version");
-    String [] javaVersionParts = javaVersion.split("\\.|_");
-    if (javaVersionParts.length >= 1) {
-      try {
-        // Return true for Java SE 5 and superior
-        if (Integer.parseInt(javaVersionParts [1]) >= 5) {
-          return true;
-        }
-      } catch (NumberFormatException ex) {
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Returns the localized string matching the given <code>key</code>. 
-   */
-  private String getLocalizedString(String key) {
-    Class SweetHome3DViewerClass = SweetHome3DViewer.class;
-    return ResourceBundle.getBundle(SweetHome3DViewerClass.getPackage().getName().replace('.', '/') + "/package").
-        getString(SweetHome3DViewerClass.getName().substring(SweetHome3DViewerClass.getName().lastIndexOf('.') + 1) + "." + key);
-  }
-  
-  /**
-   * Shows the given text in a label.
-   */
-  private void showError(String text) {
-    JLabel label = new JLabel(text, JLabel.CENTER);
-    setContentPane(label);
-  }
-  
-  /**
-   * Creates a new <code>AppletApplication</code> instance that manages this applet content.
-   */
-  private void createAppletApplication() {
-    try {
-      Class sweetHome3DViewerClass = SweetHome3DViewer.class;
-      List java3DFiles = new ArrayList();
-      if (!System.getProperty("os.name").startsWith("Mac OS X")
-          || System.getProperty("java.version").startsWith("1.5")) {
-        java3DFiles.addAll(Arrays.asList(new String [] {
-            "j3dcore.jar", // Main Java 3D jars
-            "vecmath.jar",
-            "j3dutils.jar",
-            "macosx/gluegen-rt.jar", // Mac OS X jars and DLLs
-            "macosx/jogl.jar",
-            "macosx/libgluegen-rt.jnilib",
-            "macosx/libjogl.jnilib",
-            "macosx/libjogl_awt.jnilib",
-            "macosx/libjogl_cg.jnilib"}));
-      } else {
-        java3DFiles.addAll(Arrays.asList(new String [] {
-            "macosx/java3d-1.6/j3dcore.jar", // Mac OS X Java 3D 1.6 jars and DLLs
-            "macosx/java3d-1.6/vecmath.jar",
-            "macosx/java3d-1.6/j3dutils.jar",
-            "macosx/java3d-1.6/gluegen.jar", 
-            "macosx/java3d-1.6/jogl-java3d.jar",
-            "macosx/java3d-1.6/libgluegen-rt.jnilib",
-            "macosx/java3d-1.6/libjogl_desktop.jnilib",
-            "macosx/java3d-1.6/libnativewindow_awt.jnilib",
-            "macosx/java3d-1.6/libnativewindow_macosx.jnilib"}));
-        // Disable JOGL library loader
-        System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
-      }
-      if ("64".equals(System.getProperty("sun.arch.data.model"))) {
-        java3DFiles.add("linux/x64/libj3dcore-ogl.so"); // Linux 64 bits DLLs
-        java3DFiles.add("windows/x64/j3dcore-ogl.dll"); // Windows 64 bits DLLs
-      } else {
-        java3DFiles.addAll(Arrays.asList(new String [] {
-            "linux/i386/libj3dcore-ogl.so", // Linux 32 bits DLLs
-            "linux/i386/libj3dcore-ogl-cg.so", // Windows 32 bits DLLs
-            "windows/i386/j3dcore-d3d.dll",
-            "windows/i386/j3dcore-ogl.dll",
-            "windows/i386/j3dcore-ogl-cg.dll",
-            "windows/i386/j3dcore-ogl-chk.dll"}));
-      }
-
-      List applicationPackages = new ArrayList(Arrays.asList(new String [] {
-          "com.eteks.sweethome3d",
-          "javax.media.j3d",
-          "javax.vecmath",
-          "com.sun.j3d",
-          "com.sun.opengl",
-          "com.sun.gluegen.runtime",
-          "com.jogamp",
-          "jogamp",
-          "javax.media.opengl",
-          "javax.media.nativewindow",
-          "com.microcrowd.loader.java3d",
-          "org.apache.batik"}));
-      
-      ClassLoader extensionsClassLoader = new ExtensionsClassLoader(
-          sweetHome3DViewerClass.getClassLoader(), sweetHome3DViewerClass.getProtectionDomain(),
-          (String [])java3DFiles.toArray(new String [java3DFiles.size()]), 
-          (String [])applicationPackages.toArray(new String [applicationPackages.size()]));
-      
-      // Call application constructor with reflection
-      String applicationClassName = "com.eteks.sweethome3d.applet.ViewerHelper";
-      Class applicationClass = extensionsClassLoader.loadClass(applicationClassName);
-      Constructor applicationConstructor = 
-          applicationClass.getConstructor(new Class [] {JApplet.class});
-      this.appletApplication = applicationConstructor.newInstance(new Object [] {this});
-    } catch (Throwable ex) {
-      if (ex instanceof InvocationTargetException) {
-        ex = ((InvocationTargetException)ex).getCause();
-      }
-      if (ex instanceof AccessControlException) {
-        showError(getLocalizedString("signatureError"));
-      } else {
-        showError("<html>" + getLocalizedString("startError") 
-            + "<br>Exception" + ex.getClass().getName() + " " + ex.getMessage());
-        ex.printStackTrace();
-      }
-    }
-  }  
+public class SweetHome3DViewer extends JApplet
+{
+	private Object appletApplication;
+	
+	public void init()
+	{
+		if (!isJava5OrSuperior())
+		{
+			showError(getLocalizedString("requirementsMessage"));
+		}
+		else
+		{
+			createAppletApplication();
+		}
+	}
+	
+	public void destroy()
+	{
+		if (this.appletApplication != null)
+		{
+			try
+			{
+				Method destroyMethod = this.appletApplication.getClass().getMethod("destroy", new Class[0]);
+				destroyMethod.invoke(this.appletApplication, new Object[0]);
+			}
+			catch (Exception ex)
+			{
+				// Can't do better than print stack trace when applet is destroyed
+				ex.printStackTrace();
+			}
+		}
+		this.appletApplication = null;
+		System.gc();
+	}
+	
+	/**
+	 * Returns <code>true</code> if current JVM version is 5+. 
+	 */
+	private boolean isJava5OrSuperior()
+	{
+		String javaVersion = System.getProperty("java.version");
+		String[] javaVersionParts = javaVersion.split("\\.|_");
+		if (javaVersionParts.length >= 1)
+		{
+			try
+			{
+				// Return true for Java SE 5 and superior
+				if (Integer.parseInt(javaVersionParts[1]) >= 5)
+				{
+					return true;
+				}
+			}
+			catch (NumberFormatException ex)
+			{}
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns the localized string matching the given <code>key</code>. 
+	 */
+	private String getLocalizedString(String key)
+	{
+		Class SweetHome3DViewerClass = SweetHome3DViewer.class;
+		return ResourceBundle.getBundle(SweetHome3DViewerClass.getPackage().getName().replace('.', '/') + "/package")
+				.getString(SweetHome3DViewerClass.getName()
+						.substring(SweetHome3DViewerClass.getName().lastIndexOf('.') + 1) + "." + key);
+	}
+	
+	/**
+	 * Shows the given text in a label.
+	 */
+	private void showError(String text)
+	{
+		JLabel label = new JLabel(text, JLabel.CENTER);
+		setContentPane(label);
+	}
+	
+	/**
+	 * Creates a new <code>AppletApplication</code> instance that manages this applet content.
+	 */
+	private void createAppletApplication()
+	{
+		try
+		{
+			Class sweetHome3DViewerClass = SweetHome3DViewer.class;
+			List java3DFiles = new ArrayList();
+			if (!System.getProperty("os.name").startsWith("Mac OS X")
+					|| System.getProperty("java.version").startsWith("1.5"))
+			{
+				java3DFiles.addAll(Arrays.asList(new String[] { "j3dcore.jar", // Main Java 3D jars
+						"vecmath.jar", "j3dutils.jar", "macosx/gluegen-rt.jar", // Mac OS X jars and DLLs
+						"macosx/jogl.jar", "macosx/libgluegen-rt.jnilib", "macosx/libjogl.jnilib",
+						"macosx/libjogl_awt.jnilib", "macosx/libjogl_cg.jnilib" }));
+			}
+			else
+			{
+				java3DFiles.addAll(Arrays.asList(new String[] { "macosx/java3d-1.6/j3dcore.jar", // Mac OS X Java 3D 1.6 jars and DLLs
+						"macosx/java3d-1.6/vecmath.jar", "macosx/java3d-1.6/j3dutils.jar",
+						"macosx/java3d-1.6/gluegen.jar", "macosx/java3d-1.6/jogl-java3d.jar",
+						"macosx/java3d-1.6/libgluegen-rt.jnilib", "macosx/java3d-1.6/libjogl_desktop.jnilib",
+						"macosx/java3d-1.6/libnativewindow_awt.jnilib",
+						"macosx/java3d-1.6/libnativewindow_macosx.jnilib" }));
+				// Disable JOGL library loader
+				System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
+			}
+			if ("64".equals(System.getProperty("sun.arch.data.model")))
+			{
+				java3DFiles.add("linux/x64/libj3dcore-ogl.so"); // Linux 64 bits DLLs
+				java3DFiles.add("windows/x64/j3dcore-ogl.dll"); // Windows 64 bits DLLs
+			}
+			else
+			{
+				java3DFiles.addAll(Arrays.asList(new String[] { "linux/i386/libj3dcore-ogl.so", // Linux 32 bits DLLs
+						"linux/i386/libj3dcore-ogl-cg.so", // Windows 32 bits DLLs
+						"windows/i386/j3dcore-d3d.dll", "windows/i386/j3dcore-ogl.dll",
+						"windows/i386/j3dcore-ogl-cg.dll", "windows/i386/j3dcore-ogl-chk.dll" }));
+			}
+			
+			List applicationPackages = new ArrayList(Arrays
+					.asList(new String[] { "com.eteks.sweethome3d", "javax.media.j3d", "javax.vecmath", "com.sun.j3d",
+							"com.sun.opengl", "com.sun.gluegen.runtime", "com.jogamp", "jogamp", "javax.media.opengl",
+							"javax.media.nativewindow", "com.microcrowd.loader.java3d", "org.apache.batik" }));
+			
+			ClassLoader extensionsClassLoader = new ExtensionsClassLoader(sweetHome3DViewerClass.getClassLoader(),
+					sweetHome3DViewerClass.getProtectionDomain(),
+					(String[]) java3DFiles.toArray(new String[java3DFiles.size()]),
+					(String[]) applicationPackages.toArray(new String[applicationPackages.size()]));
+			
+			// Call application constructor with reflection
+			String applicationClassName = "com.eteks.sweethome3d.applet.ViewerHelper";
+			Class applicationClass = extensionsClassLoader.loadClass(applicationClassName);
+			Constructor applicationConstructor = applicationClass.getConstructor(new Class[] { JApplet.class });
+			this.appletApplication = applicationConstructor.newInstance(new Object[] { this });
+		}
+		catch (Throwable ex)
+		{
+			if (ex instanceof InvocationTargetException)
+			{
+				ex = ((InvocationTargetException) ex).getCause();
+			}
+			if (ex instanceof AccessControlException)
+			{
+				showError(getLocalizedString("signatureError"));
+			}
+			else
+			{
+				showError("<html>" + getLocalizedString("startError") + "<br>Exception" + ex.getClass().getName() + " "
+						+ ex.getMessage());
+				ex.printStackTrace();
+			}
+		}
+	}
 }

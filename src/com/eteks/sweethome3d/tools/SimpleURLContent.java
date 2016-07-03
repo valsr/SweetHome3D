@@ -26,10 +26,12 @@ import java.net.URL;
  * @author Emmanuel Puybaret
  * @since 5.2
  */
-public class SimpleURLContent extends URLContent {
-  private static final long serialVersionUID = 1L;
-  
-  public SimpleURLContent(URL url) {
-    super(url);
-  }
+public class SimpleURLContent extends URLContent
+{
+	private static final long serialVersionUID = 1L;
+	
+	public SimpleURLContent(URL url)
+	{
+		super(url);
+	}
 }

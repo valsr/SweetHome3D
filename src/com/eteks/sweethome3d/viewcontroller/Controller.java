@@ -23,6 +23,7 @@ package com.eteks.sweethome3d.viewcontroller;
  * A MVC controller.
  * @author Emmanuel Puybaret
  */
-public interface Controller {
-  public abstract View getView();
+public interface Controller
+{
+	public abstract View getView();
 }

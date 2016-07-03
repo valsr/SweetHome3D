@@ -19,14 +19,14 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
-
 /**
  * A view that displays Sweet Home 3D help.
  * @author Emmanuel Puybaret
  */
-public interface HelpView extends View {
-  /**
-   * Displays this pane in a frame.
-   */
-  public abstract void displayView();
+public interface HelpView extends View
+{
+	/**
+	 * Displays this pane in a frame.
+	 */
+	public abstract void displayView();
 }

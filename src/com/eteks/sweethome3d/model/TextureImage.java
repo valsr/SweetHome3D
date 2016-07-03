@@ -25,25 +25,26 @@ import java.io.Serializable;
  * An image used as texture.
  * @author Emmanuel Puybaret
  */
-public interface TextureImage extends Serializable {
-  /**
-   * Returns the name of this texture image.
-   */
-  public abstract String getName();
-
-  /**
-   * Returns the content of the image used for this texture. 
-   */
-  public abstract Content getImage();
-
-  /**
-   * Returns the width of the image in centimeters.
-   */
-  public abstract float getWidth();
-
-  /**
-   * Returns the height of the image in centimeters.
-   */
-  public abstract float getHeight();
-
+public interface TextureImage extends Serializable
+{
+	/**
+	 * Returns the name of this texture image.
+	 */
+	public abstract String getName();
+	
+	/**
+	 * Returns the content of the image used for this texture. 
+	 */
+	public abstract Content getImage();
+	
+	/**
+	 * Returns the width of the image in centimeters.
+	 */
+	public abstract float getWidth();
+	
+	/**
+	 * Returns the height of the image in centimeters.
+	 */
+	public abstract float getHeight();
+	
 }

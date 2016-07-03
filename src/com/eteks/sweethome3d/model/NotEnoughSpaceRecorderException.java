@@ -24,18 +24,21 @@ package com.eteks.sweethome3d.model;
  * @author Emmanuel Puybaret
  * @since 4.4 
  */
-public class NotEnoughSpaceRecorderException extends RecorderException {
-  private long missingSpace;
-
-  public NotEnoughSpaceRecorderException(String message, long missingSpace) {
-    super(message);
-    this.missingSpace = missingSpace;
-  }
-
-  /**
-   * Returns the length of the missing space to save a home.
-   */
-  public long getMissingSpace() {
-    return this.missingSpace;
-  }
+public class NotEnoughSpaceRecorderException extends RecorderException
+{
+	private long missingSpace;
+	
+	public NotEnoughSpaceRecorderException(String message, long missingSpace)
+	{
+		super(message);
+		this.missingSpace = missingSpace;
+	}
+	
+	/**
+	 * Returns the length of the missing space to save a home.
+	 */
+	public long getMissingSpace()
+	{
+		return this.missingSpace;
+	}
 }

@@ -23,16 +23,16 @@ package com.eteks.sweethome3d.viewcontroller;
  * A view of a threaded task.
  * @author Emmanuel Puybaret
  */
-public interface ThreadedTaskView extends View {
-  /**
-   * Executes <code>runnable</code> asynchronously in the toolkit event thread.
-   */
-  public abstract void invokeLater(Runnable runnable);
-
-  /**
-   * Sets the running status of the threaded task. 
-   * If <code>taskRunning</code> is <code>true</code>, a waiting dialog will be shown.
-   */
-  public abstract void setTaskRunning(boolean taskRunning,
-                                      View executingView);
+public interface ThreadedTaskView extends View
+{
+	/**
+	 * Executes <code>runnable</code> asynchronously in the toolkit event thread.
+	 */
+	public abstract void invokeLater(Runnable runnable);
+	
+	/**
+	 * Sets the running status of the threaded task. 
+	 * If <code>taskRunning</code> is <code>true</code>, a waiting dialog will be shown.
+	 */
+	public abstract void setTaskRunning(boolean taskRunning, View executingView);
 }

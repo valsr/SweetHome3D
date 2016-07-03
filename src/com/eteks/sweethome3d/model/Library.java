@@ -24,44 +24,45 @@ package com.eteks.sweethome3d.model;
  * @author Emmanuel Puybaret
  * @since 4.0
  */
-public interface Library {
-  /**
-   * Returns the location where this library is stored.
-   */
-  public String getLocation();
-  
-  /**
-   * Returns the id of this library.
-   */
-  public String getId();
-  
-  /**
-   * Returns the type of this library.
-   */
-  public String getType();
-  
-  /**
-   * Returns the name of this library.
-   */
-  public String getName();
-
-  /**
-   * Returns the description of this library.
-   */
-  public String getDescription();
-
-  /**
-   * Returns the version of this library.
-   */
-  public String getVersion();
-
-  /**
-   * Returns the license of this library.
-   */
-  public String getLicense();
-
-  /**
-   * Returns the provider of this library.
-   */
-  public String getProvider();
+public interface Library
+{
+	/**
+	 * Returns the location where this library is stored.
+	 */
+	public String getLocation();
+	
+	/**
+	 * Returns the id of this library.
+	 */
+	public String getId();
+	
+	/**
+	 * Returns the type of this library.
+	 */
+	public String getType();
+	
+	/**
+	 * Returns the name of this library.
+	 */
+	public String getName();
+	
+	/**
+	 * Returns the description of this library.
+	 */
+	public String getDescription();
+	
+	/**
+	 * Returns the version of this library.
+	 */
+	public String getVersion();
+	
+	/**
+	 * Returns the license of this library.
+	 */
+	public String getLicense();
+	
+	/**
+	 * Returns the provider of this library.
+	 */
+	public String getProvider();
 }

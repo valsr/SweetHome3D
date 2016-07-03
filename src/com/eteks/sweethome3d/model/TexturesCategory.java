@@ -28,105 +28,117 @@ import java.util.List;
  * Category of textures.
  * @author Emmanuel Puybaret
  */
-public class TexturesCategory implements Comparable<TexturesCategory> {
-  private final String         name;
-  private List<CatalogTexture> textures;
-  
-  private static final Collator  COMPARATOR = Collator.getInstance();
-
-  /**
-   * Create a category.
-   * @param name the name of the category.
-   */
-  public TexturesCategory(String name) {
-    this.name = name;
-    this.textures = new ArrayList<CatalogTexture>();
-  }
-
-  /**
-   * Returns the name of this category.
-   */
-  public String getName() {
-    return this.name;
-  }
-
-  /**
-   * Returns the textures list of this category sorted by name.
-   * @return an unmodifiable list of furniture.
-   */
-  public List<CatalogTexture> getTextures() {
-    return Collections.unmodifiableList(this.textures);
-  }
-
-  /**
-   * Returns the count of textures in this category.
-   */
-  public int getTexturesCount() {
-    return this.textures.size();
-  }
-
-  /**
-   * Returns the texture at a given <code>index</code>.
-   */
-  public CatalogTexture getTexture(int index) {
-    return this.textures.get(index);
-  }
-
-  /**
-   * Returns the index of the given <code>texture</code>.
-   * @since 3.6
-   */
-  public int getIndexOfTexture(CatalogTexture texture) {
-    return this.textures.indexOf(texture);
-  }
-
-  /**
-   * Adds a texture to this category.
-   * @param texture the texture to add.
-   */
-  void add(CatalogTexture texture) {
-    texture.setCategory(this);
-    int index = Collections.binarySearch(this.textures, texture);
-    if (index < 0) {
-      index = -index - 1;
-    } 
-    this.textures.add(index, texture);    
-  }
-
-  /**
-   * Deletes a texture from this category.
-   * @param texture the texture to remove.
-   * @throws IllegalArgumentException if the texture doesn't exist in this category.
-   */
-  void delete(CatalogTexture texture) {
-    int textureIndex = this.textures.indexOf(texture);
-    if (textureIndex == -1) {
-      throw new IllegalArgumentException(
-          this.name + " doesn't contain texture " + texture.getName());
-    }
-    //  Make a copy of the list to avoid conflicts in the list returned by getTextures
-    this.textures = new ArrayList<CatalogTexture>(this.textures);
-    this.textures.remove(textureIndex);
-  }
-  
-  /**
-   * Returns true if this category and the one in parameter have the same name.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    return obj instanceof TexturesCategory
-           && COMPARATOR.equals(this.name, ((TexturesCategory)obj).name);
-  }
-
-  @Override
-  public int hashCode() {
-    return this.name.hashCode();
-  }
-
-  /**
-   * Compares the names of this category and the one in parameter.
-   */
-  public int compareTo(TexturesCategory category) {
-    return COMPARATOR.compare(this.name, category.name);
-  }
+public class TexturesCategory implements Comparable<TexturesCategory>
+{
+	private final String name;
+	private List<CatalogTexture> textures;
+	
+	private static final Collator COMPARATOR = Collator.getInstance();
+	
+	/**
+	 * Create a category.
+	 * @param name the name of the category.
+	 */
+	public TexturesCategory(String name)
+	{
+		this.name = name;
+		this.textures = new ArrayList<CatalogTexture>();
+	}
+	
+	/**
+	 * Returns the name of this category.
+	 */
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	/**
+	 * Returns the textures list of this category sorted by name.
+	 * @return an unmodifiable list of furniture.
+	 */
+	public List<CatalogTexture> getTextures()
+	{
+		return Collections.unmodifiableList(this.textures);
+	}
+	
+	/**
+	 * Returns the count of textures in this category.
+	 */
+	public int getTexturesCount()
+	{
+		return this.textures.size();
+	}
+	
+	/**
+	 * Returns the texture at a given <code>index</code>.
+	 */
+	public CatalogTexture getTexture(int index)
+	{
+		return this.textures.get(index);
+	}
+	
+	/**
+	 * Returns the index of the given <code>texture</code>.
+	 * @since 3.6
+	 */
+	public int getIndexOfTexture(CatalogTexture texture)
+	{
+		return this.textures.indexOf(texture);
+	}
+	
+	/**
+	 * Adds a texture to this category.
+	 * @param texture the texture to add.
+	 */
+	void add(CatalogTexture texture)
+	{
+		texture.setCategory(this);
+		int index = Collections.binarySearch(this.textures, texture);
+		if (index < 0)
+		{
+			index = -index - 1;
+		}
+		this.textures.add(index, texture);
+	}
+	
+	/**
+	 * Deletes a texture from this category.
+	 * @param texture the texture to remove.
+	 * @throws IllegalArgumentException if the texture doesn't exist in this category.
+	 */
+	void delete(CatalogTexture texture)
+	{
+		int textureIndex = this.textures.indexOf(texture);
+		if (textureIndex == -1)
+		{
+			throw new IllegalArgumentException(this.name + " doesn't contain texture " + texture.getName());
+		}
+		//  Make a copy of the list to avoid conflicts in the list returned by getTextures
+		this.textures = new ArrayList<CatalogTexture>(this.textures);
+		this.textures.remove(textureIndex);
+	}
+	
+	/**
+	 * Returns true if this category and the one in parameter have the same name.
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		return obj instanceof TexturesCategory && COMPARATOR.equals(this.name, ((TexturesCategory) obj).name);
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return this.name.hashCode();
+	}
+	
+	/**
+	 * Compares the names of this category and the one in parameter.
+	 */
+	public int compareTo(TexturesCategory category)
+	{
+		return COMPARATOR.compare(this.name, category.name);
+	}
 }

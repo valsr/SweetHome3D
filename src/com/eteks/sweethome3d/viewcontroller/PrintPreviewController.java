@@ -26,42 +26,45 @@ import com.eteks.sweethome3d.model.UserPreferences;
  * A MVC controller for home print preview view.
  * @author Emmanuel Puybaret
  */
-public class PrintPreviewController implements Controller {
-  private final Home            home;
-  private final UserPreferences preferences;
-  private final HomeController  homeController;
-  private final ViewFactory     viewFactory;
-  private DialogView            printPreviewView;
-
-  /**
-   * Creates the controller of print preview with undo support.
-   */
-  public PrintPreviewController(Home home,
-                                UserPreferences preferences,
-                                HomeController homeController,
-                                ViewFactory viewFactory) {
-    this.home = home;
-    this.preferences = preferences;
-    this.homeController = homeController;
-    this.viewFactory = viewFactory;
-  }
-
-  /**
-   * Returns the view associated with this controller.
-   */
-  public DialogView getView() {
-    // Create view lazily only once it's needed
-    if (this.printPreviewView == null) {
-      this.printPreviewView = this.viewFactory.createPrintPreviewView(this.home, 
-          this.preferences, this.homeController, this);
-    }
-    return this.printPreviewView;
-  }
-  
-  /**
-   * Displays the view controlled by this controller.
-   */
-  public void displayView(View parentView) {
-    getView().displayView(parentView);
-  }
+public class PrintPreviewController implements Controller
+{
+	private final Home home;
+	private final UserPreferences preferences;
+	private final HomeController homeController;
+	private final ViewFactory viewFactory;
+	private DialogView printPreviewView;
+	
+	/**
+	 * Creates the controller of print preview with undo support.
+	 */
+	public PrintPreviewController(Home home, UserPreferences preferences, HomeController homeController,
+			ViewFactory viewFactory)
+	{
+		this.home = home;
+		this.preferences = preferences;
+		this.homeController = homeController;
+		this.viewFactory = viewFactory;
+	}
+	
+	/**
+	 * Returns the view associated with this controller.
+	 */
+	public DialogView getView()
+	{
+		// Create view lazily only once it's needed
+		if (this.printPreviewView == null)
+		{
+			this.printPreviewView = this.viewFactory.createPrintPreviewView(this.home, this.preferences,
+					this.homeController, this);
+		}
+		return this.printPreviewView;
+	}
+	
+	/**
+	 * Displays the view controlled by this controller.
+	 */
+	public void displayView(View parentView)
+	{
+		getView().displayView(parentView);
+	}
 }

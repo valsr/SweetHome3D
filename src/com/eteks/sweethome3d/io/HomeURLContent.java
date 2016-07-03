@@ -26,8 +26,10 @@ import com.eteks.sweethome3d.tools.URLContent;
 /**
  * An URL content read from a home stream stored in a temporary file.
  */
-class HomeURLContent extends URLContent {
-  public HomeURLContent(URL url) {
-    super(url);
-  }
+class HomeURLContent extends URLContent
+{
+	public HomeURLContent(URL url)
+	{
+		super(url);
+	}
 }

@@ -23,19 +23,21 @@ package com.eteks.sweethome3d.model;
  * Exception thrown when a method didn't accept an homonym.
  * @author Emmanuel Puybaret
  */
-public class IllegalHomonymException extends IllegalArgumentException {
-  private static final long serialVersionUID = 1L;
-  
-  /**
-   * Creates a default <code>IllegalHomonymException</code>.
-   */
-  public IllegalHomonymException() {
-  }
-
-  /**
-   * Creates a <code>IllegalHomonymException</code> with its message.
-   */
-  public IllegalHomonymException(String s) {
-    super(s);
-  }
+public class IllegalHomonymException extends IllegalArgumentException
+{
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Creates a default <code>IllegalHomonymException</code>.
+	 */
+	public IllegalHomonymException()
+	{}
+	
+	/**
+	 * Creates a <code>IllegalHomonymException</code> with its message.
+	 */
+	public IllegalHomonymException(String s)
+	{
+		super(s);
+	}
 }

@@ -23,20 +23,23 @@ package com.eteks.sweethome3d.model;
  * Exception thrown when a thread is interrupted during an access to data in IO layer.
  * @author Emmanuel Puybaret
  */
-public class InterruptedRecorderException extends RecorderException {
-  private static final long serialVersionUID = 1L;
-
-  /**
-   * Creates a default <code>InterruptedRecorderException</code>.
-   */
-  public InterruptedRecorderException() {
-    super();
-  }
-
-  /**
-   * Creates a <code>InterruptedRecorderException</code> from its message.
-   */
-  public InterruptedRecorderException(String message) {
-    super(message);
-  }
+public class InterruptedRecorderException extends RecorderException
+{
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Creates a default <code>InterruptedRecorderException</code>.
+	 */
+	public InterruptedRecorderException()
+	{
+		super();
+	}
+	
+	/**
+	 * Creates a <code>InterruptedRecorderException</code> from its message.
+	 */
+	public InterruptedRecorderException(String message)
+	{
+		super(message);
+	}
 }

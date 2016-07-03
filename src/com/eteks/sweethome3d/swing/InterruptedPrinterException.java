@@ -25,18 +25,21 @@ import java.awt.print.PrinterException;
  * A printer exception thrown when print is interrupted. 
  * @author Emmanuel Puybaret
  */
-public class InterruptedPrinterException extends PrinterException {
-  /**
-   * Creates an interrupted printer exception.
-   */
-  public InterruptedPrinterException() {
-    super();
-  }
-
-  /**
-   * Creates an interrupted printer exception with the given message.
-   */
-  public InterruptedPrinterException(String message) {
-    super(message);
-  }
+public class InterruptedPrinterException extends PrinterException
+{
+	/**
+	 * Creates an interrupted printer exception.
+	 */
+	public InterruptedPrinterException()
+	{
+		super();
+	}
+	
+	/**
+	 * Creates an interrupted printer exception with the given message.
+	 */
+	public InterruptedPrinterException(String message)
+	{
+		super(message);
+	}
 }

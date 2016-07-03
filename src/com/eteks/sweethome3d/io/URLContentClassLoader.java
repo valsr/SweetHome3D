@@ -30,22 +30,30 @@ import com.eteks.sweethome3d.tools.URLContent;
  * A class loader that gives access to its resources with {@link URLContent URLContent} instances.
  * @author Emmanuel Puybaret
  */
-class URLContentClassLoader extends ClassLoader {
-  private final URL url;
-
-  public URLContentClassLoader(URL url) {
-    this.url = url;
-  }
-
-  @Override
-  public InputStream getResourceAsStream(String name) {
-    try {
-      // Return a stream managed by URLContent to be able to delete the writable files accessed with jar protocol
-      return new URLContent(new URL("jar:" + this.url.toURI() + "!/" + name)).openStream();
-    } catch (IOException ex) {
-      return null;
-    } catch (URISyntaxException ex) {
-      return null;
-    }
-  }
+class URLContentClassLoader extends ClassLoader
+{
+	private final URL url;
+	
+	public URLContentClassLoader(URL url)
+	{
+		this.url = url;
+	}
+	
+	@Override
+	public InputStream getResourceAsStream(String name)
+	{
+		try
+		{
+			// Return a stream managed by URLContent to be able to delete the writable files accessed with jar protocol
+			return new URLContent(new URL("jar:" + this.url.toURI() + "!/" + name)).openStream();
+		}
+		catch (IOException ex)
+		{
+			return null;
+		}
+		catch (URISyntaxException ex)
+		{
+			return null;
+		}
+	}
 }

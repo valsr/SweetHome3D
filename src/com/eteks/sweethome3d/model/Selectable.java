@@ -23,35 +23,34 @@ package com.eteks.sweethome3d.model;
  * An object that is selectable in home.
  * @author Emmanuel Puybaret
  */
-public interface Selectable extends Cloneable {
-  /**
-   * Returns the points of the shape surrounding this object.
-   * @return an array of the (x,y) coordinates of the rectangle.
-   */
-  public abstract float [][] getPoints();
-
-  /**
-   * Returns <code>true</code> if this object intersects
-   * with the horizontal rectangle which opposite corners are at points
-   * (<code>x0</code>, <code>y0</code>) and (<code>x1</code>, <code>y1</code>).
-   */
-  public abstract boolean intersectsRectangle(float x0, float y0,
-                                              float x1, float y1);
-
-  /**
-   * Returns <code>true</code> if this object contains the point at 
-   * (<code>x</code>, <code>y</code>) with a given <code>margin</code>.
-   */
-  public abstract boolean containsPoint(float x, float y,
-                                        float margin);
-
-  /**
-   * Moves this object of (<code>dx</code>, <code>dy</code>) units.
-   */
-  public abstract void move(float dx, float dy);
-  
-  /**
-   * Returns a clone of this object.
-   */
-  public abstract Selectable clone();
+public interface Selectable extends Cloneable
+{
+	/**
+	 * Returns the points of the shape surrounding this object.
+	 * @return an array of the (x,y) coordinates of the rectangle.
+	 */
+	public abstract float[][] getPoints();
+	
+	/**
+	 * Returns <code>true</code> if this object intersects
+	 * with the horizontal rectangle which opposite corners are at points
+	 * (<code>x0</code>, <code>y0</code>) and (<code>x1</code>, <code>y1</code>).
+	 */
+	public abstract boolean intersectsRectangle(float x0, float y0, float x1, float y1);
+	
+	/**
+	 * Returns <code>true</code> if this object contains the point at 
+	 * (<code>x</code>, <code>y</code>) with a given <code>margin</code>.
+	 */
+	public abstract boolean containsPoint(float x, float y, float margin);
+	
+	/**
+	 * Moves this object of (<code>dx</code>, <code>dy</code>) units.
+	 */
+	public abstract void move(float dx, float dy);
+	
+	/**
+	 * Returns a clone of this object.
+	 */
+	public abstract Selectable clone();
 }

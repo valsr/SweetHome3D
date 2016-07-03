@@ -26,45 +26,47 @@ import java.util.List;
  * @author Emmanuel Puybaret
  * @since 4.4 
  */
-public class DamagedHomeRecorderException extends RecorderException {
-  private static final long serialVersionUID = 1L;
-  
-  private Home damagedHome;
-  private List<Content> invalidContent;
-
-  /**
-   * Creates an exception for the given damaged home with the invalid content it may contains.
-   */
-  public DamagedHomeRecorderException(Home damagedHome,
-                                      List<Content> invalidContent) {
-    super();
-    this.damagedHome = damagedHome;
-    this.invalidContent = invalidContent;
-  }
-
-  /**
-   * Creates an exception for the given damaged home with the invalid content it may contains.
-   */
-  public DamagedHomeRecorderException(Home damagedHome,
-                                      List<Content> invalidContent,
-                                      String message) {
-    super(message);
-    this.damagedHome = damagedHome;
-    this.invalidContent = invalidContent;
-  }
-
-  /**
-   * Returns the damaged home containing some possible invalid content.
-   * This home can be handled and saved correctly only once the invalid content will be removed. 
-   */
-  public Home getDamagedHome() {
-    return this.damagedHome;
-  }
-  
-  /**
-   * Returns the invalid content in the damaged home.
-   */
-  public List<Content> getInvalidContent() {
-    return this.invalidContent;
-  }
+public class DamagedHomeRecorderException extends RecorderException
+{
+	private static final long serialVersionUID = 1L;
+	
+	private Home damagedHome;
+	private List<Content> invalidContent;
+	
+	/**
+	 * Creates an exception for the given damaged home with the invalid content it may contains.
+	 */
+	public DamagedHomeRecorderException(Home damagedHome, List<Content> invalidContent)
+	{
+		super();
+		this.damagedHome = damagedHome;
+		this.invalidContent = invalidContent;
+	}
+	
+	/**
+	 * Creates an exception for the given damaged home with the invalid content it may contains.
+	 */
+	public DamagedHomeRecorderException(Home damagedHome, List<Content> invalidContent, String message)
+	{
+		super(message);
+		this.damagedHome = damagedHome;
+		this.invalidContent = invalidContent;
+	}
+	
+	/**
+	 * Returns the damaged home containing some possible invalid content.
+	 * This home can be handled and saved correctly only once the invalid content will be removed. 
+	 */
+	public Home getDamagedHome()
+	{
+		return this.damagedHome;
+	}
+	
+	/**
+	 * Returns the invalid content in the damaged home.
+	 */
+	public List<Content> getInvalidContent()
+	{
+		return this.invalidContent;
+	}
 }

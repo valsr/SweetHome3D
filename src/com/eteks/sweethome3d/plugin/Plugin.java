@@ -68,172 +68,192 @@ import com.eteks.sweethome3d.viewcontroller.HomeController;
  * javaMinimumVersion=1.5</pre>
  * @author Emmanuel Puybaret
  */
-public abstract class Plugin {
-  private ClassLoader         pluginClassLoader;
-  private String              name;
-  private String              description;
-  private String              version;
-  private String              license;
-  private String              provider;
-  private UserPreferences     userPreferences;
-  private Home                home;
-  private HomeController      homeController;
-  private UndoableEditSupport undoableEditSupport;
-
-
-  /**
-   * Sets the class loader used to load this plug-in.
-   */
-  final void setPluginClassLoader(ClassLoader pluginClassLoader) {
-    this.pluginClassLoader = pluginClassLoader;
-  }
-
-  /**
-   * Returns the class loader used to load this plug-in.
-   */
-  public final ClassLoader getPluginClassLoader() {
-    return this.pluginClassLoader;
-  }
-
-  /**
-   * Sets the name of this plug-in.
-   */
-  final void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Returns the name of this plug-in.
-   */
-  public final String getName() {
-    return this.name;
-  }
-  
-  /**
-   * Sets the description of this plug-in.
-   */
-  final void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Returns the description of this plug-in.
-   */
-  public final String getDescription() {
-    return this.description;
-  }
-  
-  /**
-   * Sets the version of this plug-in.
-   */
-  final void setVersion(String version) {
-    this.version = version;
-  }
-
-  /**
-   * Returns the version of this plug-in.
-   */
-  public final String getVersion() {
-    return this.version;
-  }
-  
-  /**
-   * Sets the license of this plug-in.
-   */
-  final void setLicense(String license) {
-    this.license = license;
-  }
-
-  /**
-   * Returns the license of this plug-in.
-   */
-  public final String getLicense() {
-    return this.license;
-  }
-  
-  /**
-   * Sets the provider of this plug-in.
-   */
-  final void setProvider(String provider) {
-    this.provider = provider;
-  }
-
-  /**
-   * Returns the provider of this plug-in.
-   */
-  public String getProvider() {
-    return this.provider;
-  }
-  
-  /**
-   * Sets the user preferences of the current application.
-   */
-  final void setUserPreferences(UserPreferences userPreferences) {
-    this.userPreferences = userPreferences;    
-  }
-  
-  /**
-   * Returns the user preferences of the current application.
-   */
-  public final UserPreferences getUserPreferences() {
-    return this.userPreferences;
-  }
-
-  /**
-   * Sets the home associated to this plug-in instance.
-   */
-  final void setHome(Home home) {
-    this.home = home;
-  }
-
-  /**
-   * Returns the home associated to this plug-in instance.
-   */
-  public final Home getHome() {
-    return this.home;
-  }
-
-  /**
-   * Sets the controller of the home.
-   * @since 3.5
-   */
-  final void setHomeController(HomeController homeController) {
-    this.homeController = homeController;
-  }
-
-  /**
-   * Returns the controller of the home of this plug-in.
-   * @since 3.5
-   */
-  public HomeController getHomeController() {
-    return this.homeController;
-  }
-  
-  /**
-   * Sets the undoable edit support that records undoable modifications made on a home. 
-   */
-  final void setUndoableEditSupport(UndoableEditSupport undoableEditSupport) {
-    this.undoableEditSupport = undoableEditSupport;
-  }
-
-  /**
-   * Returns the undoable edit support that records undoable modifications made on a home. 
-   */
-  public final UndoableEditSupport getUndoableEditSupport() {
-    return this.undoableEditSupport;
-  }
- 
-  /**
-   * This method will be called when the home referenced by this plug-in will be deleted.
-   * Subclasses may override it to free resources associated to this plug-in.
-   */
-  public void destroy() {    
-  }
-  
-  /**
-   * Returns the actions available on this plug-in. 
-   * These actions may define the properties defined by 
-   * {@link PluginAction.Property PluginAction.Property} enumeration.
-   */
-  public abstract PluginAction [] getActions();
+public abstract class Plugin
+{
+	private ClassLoader pluginClassLoader;
+	private String name;
+	private String description;
+	private String version;
+	private String license;
+	private String provider;
+	private UserPreferences userPreferences;
+	private Home home;
+	private HomeController homeController;
+	private UndoableEditSupport undoableEditSupport;
+	
+	/**
+	 * Sets the class loader used to load this plug-in.
+	 */
+	final void setPluginClassLoader(ClassLoader pluginClassLoader)
+	{
+		this.pluginClassLoader = pluginClassLoader;
+	}
+	
+	/**
+	 * Returns the class loader used to load this plug-in.
+	 */
+	public final ClassLoader getPluginClassLoader()
+	{
+		return this.pluginClassLoader;
+	}
+	
+	/**
+	 * Sets the name of this plug-in.
+	 */
+	final void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	/**
+	 * Returns the name of this plug-in.
+	 */
+	public final String getName()
+	{
+		return this.name;
+	}
+	
+	/**
+	 * Sets the description of this plug-in.
+	 */
+	final void setDescription(String description)
+	{
+		this.description = description;
+	}
+	
+	/**
+	 * Returns the description of this plug-in.
+	 */
+	public final String getDescription()
+	{
+		return this.description;
+	}
+	
+	/**
+	 * Sets the version of this plug-in.
+	 */
+	final void setVersion(String version)
+	{
+		this.version = version;
+	}
+	
+	/**
+	 * Returns the version of this plug-in.
+	 */
+	public final String getVersion()
+	{
+		return this.version;
+	}
+	
+	/**
+	 * Sets the license of this plug-in.
+	 */
+	final void setLicense(String license)
+	{
+		this.license = license;
+	}
+	
+	/**
+	 * Returns the license of this plug-in.
+	 */
+	public final String getLicense()
+	{
+		return this.license;
+	}
+	
+	/**
+	 * Sets the provider of this plug-in.
+	 */
+	final void setProvider(String provider)
+	{
+		this.provider = provider;
+	}
+	
+	/**
+	 * Returns the provider of this plug-in.
+	 */
+	public String getProvider()
+	{
+		return this.provider;
+	}
+	
+	/**
+	 * Sets the user preferences of the current application.
+	 */
+	final void setUserPreferences(UserPreferences userPreferences)
+	{
+		this.userPreferences = userPreferences;
+	}
+	
+	/**
+	 * Returns the user preferences of the current application.
+	 */
+	public final UserPreferences getUserPreferences()
+	{
+		return this.userPreferences;
+	}
+	
+	/**
+	 * Sets the home associated to this plug-in instance.
+	 */
+	final void setHome(Home home)
+	{
+		this.home = home;
+	}
+	
+	/**
+	 * Returns the home associated to this plug-in instance.
+	 */
+	public final Home getHome()
+	{
+		return this.home;
+	}
+	
+	/**
+	 * Sets the controller of the home.
+	 * @since 3.5
+	 */
+	final void setHomeController(HomeController homeController)
+	{
+		this.homeController = homeController;
+	}
+	
+	/**
+	 * Returns the controller of the home of this plug-in.
+	 * @since 3.5
+	 */
+	public HomeController getHomeController()
+	{
+		return this.homeController;
+	}
+	
+	/**
+	 * Sets the undoable edit support that records undoable modifications made on a home. 
+	 */
+	final void setUndoableEditSupport(UndoableEditSupport undoableEditSupport)
+	{
+		this.undoableEditSupport = undoableEditSupport;
+	}
+	
+	/**
+	 * Returns the undoable edit support that records undoable modifications made on a home. 
+	 */
+	public final UndoableEditSupport getUndoableEditSupport()
+	{
+		return this.undoableEditSupport;
+	}
+	
+	/**
+	 * This method will be called when the home referenced by this plug-in will be deleted.
+	 * Subclasses may override it to free resources associated to this plug-in.
+	 */
+	public void destroy()
+	{}
+	
+	/**
+	 * Returns the actions available on this plug-in. 
+	 * These actions may define the properties defined by 
+	 * {@link PluginAction.Property PluginAction.Property} enumeration.
+	 */
+	public abstract PluginAction[] getActions();
 }

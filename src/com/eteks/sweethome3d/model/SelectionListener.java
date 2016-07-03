@@ -25,9 +25,10 @@ import java.util.EventListener;
  * Listener implemented to receive notifications of selection changes in {@link Home}.
  * @author Emmanuel Puybaret
  */
-public interface SelectionListener extends EventListener {
-  /**
-   * Invoked when selection changed.
-   */
-  void selectionChanged(SelectionEvent selectionEvent);
+public interface SelectionListener extends EventListener
+{
+	/**
+	 * Invoked when selection changed.
+	 */
+	void selectionChanged(SelectionEvent selectionEvent);
 }

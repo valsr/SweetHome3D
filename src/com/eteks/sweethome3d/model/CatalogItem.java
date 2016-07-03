@@ -24,19 +24,20 @@ package com.eteks.sweethome3d.model;
  * @author Emmanuel Puybaret
  * @since 4.4
  */
-public interface CatalogItem {
-  /**
-   * Returns the name of this catalog item.
-   */
-  public abstract String getName();
-
-  /**
-   * Returns the icon of this catalog item.
-   */
-  public abstract Content getIcon();
-
-  /**
-   * Returns the creator of this catalog item or <code>null</code>.
-   */
-  public String getCreator();
+public interface CatalogItem
+{
+	/**
+	 * Returns the name of this catalog item.
+	 */
+	public abstract String getName();
+	
+	/**
+	 * Returns the icon of this catalog item.
+	 */
+	public abstract Content getIcon();
+	
+	/**
+	 * Returns the creator of this catalog item or <code>null</code>.
+	 */
+	public String getCreator();
 }

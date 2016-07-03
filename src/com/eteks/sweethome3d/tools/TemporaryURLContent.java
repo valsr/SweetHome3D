@@ -32,48 +32,57 @@ import com.eteks.sweethome3d.model.Content;
  * URL content for files, images...
  * @author Emmanuel Puybaret
  */
-public class TemporaryURLContent extends URLContent {
-  private static final long serialVersionUID = 1L;
-
-  public TemporaryURLContent(URL temporaryUrl) {
-    super(temporaryUrl);
-  }
-
-  /**
-   * Returns a {@link URLContent URL content} object that references a temporary copy of 
-   * a given <code>content</code>.
-   */
-  public static TemporaryURLContent copyToTemporaryURLContent(Content content) throws IOException {
-    String extension = ".tmp";
-    if (content instanceof URLContent) {
-      URLContent urlContent = (URLContent)content;
-      String file = urlContent.isJAREntry() 
-          ? urlContent.getJAREntryName()
-          : urlContent.getURL().getFile();
-      int lastIndex = file.lastIndexOf('.');
-      if (lastIndex > 0) {
-        extension = file.substring(lastIndex);
-      }
-    }
-    File tempFile = OperatingSystem.createTemporaryFile("temp", extension);
-    InputStream tempIn = null;
-    OutputStream tempOut = null;
-    try {
-      tempIn = content.openStream();
-      tempOut = new FileOutputStream(tempFile);
-      byte [] buffer = new byte [8192];
-      int size; 
-      while ((size = tempIn.read(buffer)) != -1) {
-        tempOut.write(buffer, 0, size);
-      }
-    } finally {
-      if (tempIn != null) {
-        tempIn.close();
-      }
-      if (tempOut != null) {
-        tempOut.close();
-      }
-    }
-    return new TemporaryURLContent(tempFile.toURI().toURL());
-  }
+public class TemporaryURLContent extends URLContent
+{
+	private static final long serialVersionUID = 1L;
+	
+	public TemporaryURLContent(URL temporaryUrl)
+	{
+		super(temporaryUrl);
+	}
+	
+	/**
+	 * Returns a {@link URLContent URL content} object that references a temporary copy of 
+	 * a given <code>content</code>.
+	 */
+	public static TemporaryURLContent copyToTemporaryURLContent(Content content) throws IOException
+	{
+		String extension = ".tmp";
+		if (content instanceof URLContent)
+		{
+			URLContent urlContent = (URLContent) content;
+			String file = urlContent.isJAREntry() ? urlContent.getJAREntryName() : urlContent.getURL().getFile();
+			int lastIndex = file.lastIndexOf('.');
+			if (lastIndex > 0)
+			{
+				extension = file.substring(lastIndex);
+			}
+		}
+		File tempFile = OperatingSystem.createTemporaryFile("temp", extension);
+		InputStream tempIn = null;
+		OutputStream tempOut = null;
+		try
+		{
+			tempIn = content.openStream();
+			tempOut = new FileOutputStream(tempFile);
+			byte[] buffer = new byte[8192];
+			int size;
+			while ((size = tempIn.read(buffer)) != -1)
+			{
+				tempOut.write(buffer, 0, size);
+			}
+		}
+		finally
+		{
+			if (tempIn != null)
+			{
+				tempIn.close();
+			}
+			if (tempOut != null)
+			{
+				tempOut.close();
+			}
+		}
+		return new TemporaryURLContent(tempFile.toURI().toURL());
+	}
 }

@@ -29,33 +29,36 @@ import com.eteks.sweethome3d.model.Home;
  * Exception thrown when a home data is damaged containing invalid content.
  * @author Emmanuel Puybaret
  */
-public class DamagedHomeIOException extends IOException {
-  private static final long serialVersionUID = 1L;
-  
-  private Home damagedHome;
-  private List<Content> invalidContent;
-
-  /**
-   * Creates an exception for the given damaged home with the invalid content it may contains.
-   */
-  public DamagedHomeIOException(Home damagedHome,
-                                List<Content> invalidContent) {
-    super();
-    this.damagedHome = damagedHome;
-    this.invalidContent = invalidContent;
-  }
-  
-  /**
-   * Returns the damaged home containing some possible invalid content.
-   */
-  public Home getDamagedHome() {
-    return this.damagedHome;
-  }
-  
-  /**
-   * Returns the invalid content in the damaged home.
-   */
-  public List<Content> getInvalidContent() {
-    return this.invalidContent;
-  }
+public class DamagedHomeIOException extends IOException
+{
+	private static final long serialVersionUID = 1L;
+	
+	private Home damagedHome;
+	private List<Content> invalidContent;
+	
+	/**
+	 * Creates an exception for the given damaged home with the invalid content it may contains.
+	 */
+	public DamagedHomeIOException(Home damagedHome, List<Content> invalidContent)
+	{
+		super();
+		this.damagedHome = damagedHome;
+		this.invalidContent = invalidContent;
+	}
+	
+	/**
+	 * Returns the damaged home containing some possible invalid content.
+	 */
+	public Home getDamagedHome()
+	{
+		return this.damagedHome;
+	}
+	
+	/**
+	 * Returns the invalid content in the damaged home.
+	 */
+	public List<Content> getInvalidContent()
+	{
+		return this.invalidContent;
+	}
 }

@@ -24,14 +24,15 @@ package com.eteks.sweethome3d.model;
  * @author Emmanuel Puybaret
  * @since 3.4
  */
-public interface Elevatable {
-  /**
-   * Returns the level of this object.
-   */
-  public abstract Level getLevel();
-  
-  /**
-   * Returns <code>true</code> if this object can be viewed at the given level.
-   */
-  public abstract boolean isAtLevel(Level level);
+public interface Elevatable
+{
+	/**
+	 * Returns the level of this object.
+	 */
+	public abstract Level getLevel();
+	
+	/**
+	 * Returns <code>true</code> if this object can be viewed at the given level.
+	 */
+	public abstract boolean isAtLevel(Level level);
 }

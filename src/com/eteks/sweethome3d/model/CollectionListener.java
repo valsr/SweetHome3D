@@ -26,9 +26,10 @@ import java.util.EventListener;
  * <code>T</code> is the type of item stored in the collection.
  * @author Emmanuel Puybaret
  */
-public interface CollectionListener<T> extends EventListener {
-  /**
-   * Called when an item is added or deleted from a collection.
-   */
-  public void collectionChanged(CollectionEvent<T> ev);
+public interface CollectionListener<T> extends EventListener
+{
+	/**
+	 * Called when an item is added or deleted from a collection.
+	 */
+	public void collectionChanged(CollectionEvent<T> ev);
 }

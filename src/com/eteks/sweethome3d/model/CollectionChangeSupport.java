@@ -27,54 +27,61 @@ import java.util.List;
  * <code>T</code> is the type of item stored in the collection.
  * @author Emmanuel Puybaret
  */
-public class CollectionChangeSupport<T> {
-  private final Object                      source;
-  private final List<CollectionListener<T>> collectionListeners;
-  
-  /**
-   * Creates a collection change support.
-   */
-  public CollectionChangeSupport(Object source) {
-    this.source = source;
-    this.collectionListeners = new ArrayList<CollectionListener<T>>(5);
-  }
-  
-  /**
-   * Adds the <code>listener</code> in parameter to the list of listeners that may be notified.
-   */
-  public void addCollectionListener(CollectionListener<T> listener) {
-    this.collectionListeners.add(listener);
-  }
-
-  /**
-   * Removes the <code>listener</code> in parameter to the list of listeners that may be notified.
-   */
-  public void removeCollectionListener(CollectionListener<T> listener) {
-    this.collectionListeners.remove(listener);
-  }
-
-  /**
-   * Fires a collection event about <code>item</code>.
-   */
-  public void fireCollectionChanged(T item, CollectionEvent.Type eventType) {
-    fireCollectionChanged(item, -1, eventType);
-  }
-
-  /**
-   * Fires a collection event about <code>item</code> at a given <code>index</code>.
-   */
-  @SuppressWarnings("unchecked")
-  public void fireCollectionChanged(T item, int index, 
-                                    CollectionEvent.Type eventType) {
-    if (!this.collectionListeners.isEmpty()) {
-      CollectionEvent<T> event = new CollectionEvent<T>(this.source, item, index, eventType);
-      // Work on a copy of collectionListeners to ensure a listener 
-      // can modify safely listeners list
-      CollectionListener<T> [] listeners = this.collectionListeners.
-        toArray(new CollectionListener [this.collectionListeners.size()]);
-      for (CollectionListener<T> listener : listeners) {
-        listener.collectionChanged(event);
-      }
-    }
-  }
+public class CollectionChangeSupport<T>
+{
+	private final Object source;
+	private final List<CollectionListener<T>> collectionListeners;
+	
+	/**
+	 * Creates a collection change support.
+	 */
+	public CollectionChangeSupport(Object source)
+	{
+		this.source = source;
+		this.collectionListeners = new ArrayList<CollectionListener<T>>(5);
+	}
+	
+	/**
+	 * Adds the <code>listener</code> in parameter to the list of listeners that may be notified.
+	 */
+	public void addCollectionListener(CollectionListener<T> listener)
+	{
+		this.collectionListeners.add(listener);
+	}
+	
+	/**
+	 * Removes the <code>listener</code> in parameter to the list of listeners that may be notified.
+	 */
+	public void removeCollectionListener(CollectionListener<T> listener)
+	{
+		this.collectionListeners.remove(listener);
+	}
+	
+	/**
+	 * Fires a collection event about <code>item</code>.
+	 */
+	public void fireCollectionChanged(T item, CollectionEvent.Type eventType)
+	{
+		fireCollectionChanged(item, -1, eventType);
+	}
+	
+	/**
+	 * Fires a collection event about <code>item</code> at a given <code>index</code>.
+	 */
+	@SuppressWarnings("unchecked")
+	public void fireCollectionChanged(T item, int index, CollectionEvent.Type eventType)
+	{
+		if (!this.collectionListeners.isEmpty())
+		{
+			CollectionEvent<T> event = new CollectionEvent<T>(this.source, item, index, eventType);
+			// Work on a copy of collectionListeners to ensure a listener 
+			// can modify safely listeners list
+			CollectionListener<T>[] listeners = this.collectionListeners
+					.toArray(new CollectionListener[this.collectionListeners.size()]);
+			for (CollectionListener<T> listener : listeners)
+			{
+				listener.collectionChanged(event);
+			}
+		}
+	}
 }

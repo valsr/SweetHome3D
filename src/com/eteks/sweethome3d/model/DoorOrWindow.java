@@ -24,32 +24,33 @@ package com.eteks.sweethome3d.model;
  * @author Emmanuel Puybaret
  * @since  1.7
  */
-public interface DoorOrWindow extends PieceOfFurniture {
-  /**
-   * Returns the default thickness of the wall in which this door or window should be placed.
-   * @return a value in percentage of the depth of this door or window.
-   */
-  public abstract float getWallThickness();
-  
-  /**
-   * Returns the default distance that should lie outside of this door or window.
-   * @return a distance in percentage of the depth of this door or the window.
-   */
-  public abstract float getWallDistance();
-  
-  /**
-   * Returns a copy of the sashes attached to this door or window.
-   * If no sash is defined an empty array is returned. 
-   */
-  public abstract Sash [] getSashes();
-
-  /**
-   * Returns the shape used to cut out walls that intersect this new door or window.
-   * @return <code>null</code> or a shape defined with the syntax of the d attribute of a 
-   * <a href="http://www.w3.org/TR/SVG/paths.html">SVG path element</a>
-   * that fits in a square spreading from (0, 0) to (1, 1) which will be 
-   * scaled afterwards to the real size of this door or window. 
-   * @since 4.2
-   */
-  public abstract String getCutOutShape();
+public interface DoorOrWindow extends PieceOfFurniture
+{
+	/**
+	 * Returns the default thickness of the wall in which this door or window should be placed.
+	 * @return a value in percentage of the depth of this door or window.
+	 */
+	public abstract float getWallThickness();
+	
+	/**
+	 * Returns the default distance that should lie outside of this door or window.
+	 * @return a distance in percentage of the depth of this door or the window.
+	 */
+	public abstract float getWallDistance();
+	
+	/**
+	 * Returns a copy of the sashes attached to this door or window.
+	 * If no sash is defined an empty array is returned. 
+	 */
+	public abstract Sash[] getSashes();
+	
+	/**
+	 * Returns the shape used to cut out walls that intersect this new door or window.
+	 * @return <code>null</code> or a shape defined with the syntax of the d attribute of a 
+	 * <a href="http://www.w3.org/TR/SVG/paths.html">SVG path element</a>
+	 * that fits in a square spreading from (0, 0) to (1, 1) which will be 
+	 * scaled afterwards to the real size of this door or window. 
+	 * @since 4.2
+	 */
+	public abstract String getCutOutShape();
 }
