@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<!-- build.xml
+
+     Sweet Home 3D, Copyright (c) 2007-2016 Emmanuel PUYBARET / eTeks <info@eteks.com>. 
+     
+     Ant build file that contains windows specific build targets helpers. 
+-->
+<project basedir=".">
+
+	<target name="java3dLibraries-windows" description="Linux helper task for java3dLibraries">
+		<!-- Create java3d.jar containing Windows 32 bit Java 3D DLLs and jars -->
+		<mkdir dir="deploy/lib/windows/i386" />
+		<jar destfile="deploy/lib/windows/i386/java3d.jar" manifest="build/META-INF/MANIFEST.MF">
+			<fileset refid="libs.j3d" />name="vecmath.jar" />
+			<fileset dir="lib">
+				<include name="windows/i386/*.dll" />
+			</fileset>
+		</jar>
+
+		<!-- Create java3d.jar containing Windows 64 bit Java 3D DLLs and jars -->
+		<mkdir dir="deploy/lib/windows/x64" />
+		<jar destfile="deploy/lib/windows/x64/java3d.jar" manifest="build/META-INF/MANIFEST.MF">
+			<fileset refid="libs.j3d" />
+			<fileset dir="lib">
+				<include name="windows/x64/*.dll" />
+			</fileset>
+		</jar>
+	</target>
+
+	<!-- Builds Sweet Home 3D Windows launcher in install/windows/build directory.
+	       CAUTION : May be run only under Windows 64 bit and requires Windows 32 bit JRE, 
+	                 64 bit JRE and launch4j installed in their default location -->
+	<target name="windowsLauncher-impl" description="Builds Sweet Home 3D Windows launcher">
+		<!-- Copy SweetHome3D JARs and Windows Java 3D DLLs and JARs for Java 3D 
+	         to install/windows/build/lib -->
+		<mkdir dir="install/windows/build/lib/x86" />
+		<move file="build/SweetHome3D.jar" todir="install/windows/build/lib" />
+		<move file="build/Furniture.jar" todir="install/windows/build/lib" />
+		<move file="build/Textures.jar" todir="install/windows/build/lib" />
+		<move file="build/Help.jar" todir="install/windows/build/lib" />
+		<copy todir="install/windows/build/lib">
+			<fileset dir="lib">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="install/windows/build/lib/x86">
+			<fileset dir="lib/windows/i386">
+				<include name="*.dll" />
+			</fileset>
+		</copy>
+		<mkdir dir="install/windows/build/lib/x64" />
+		<copy todir="install/windows/build/lib/x64">
+			<fileset dir="lib/windows/x64">
+				<include name="*.dll" />
+			</fileset>
+		</copy>
+		<!-- Copy COPYING.TXT and licenses texts to install/windows/build/ -->
+		<copy file="COPYING.TXT" todir="install/windows/build">
+			<fileset refid="files.licenses" />
+		</copy>
+
+		<!-- Copy 32 bit JRE to install/windows/build/jre/x86... excluding files mentioned 
+	         in JRE README.TXT file (JRE bin/javaw.exe command excepted) -->
+		<copy todir="install/windows/build/jre8/x86">
+			<fileset dir="C:\Program Files (x86)\Java\jre1.8.0_74">
+				<include name="*" />
+				<include name="bin/**" />
+				<include name="lib/**" />
+
+				<exclude name="lib/ext/sunjce_provider.jar" />
+				<exclude name="lib/ext/sunec.jar" />
+				<exclude name="lib/ext/sunpkcs11.jar" />
+				<exclude name="bin/rmid.exe" />
+				<exclude name="bin/rmiregistry.exe" />
+				<exclude name="bin/tnameserv.exe" />
+				<exclude name="bin/keytool.exe" />
+				<exclude name="bin/kinit.exe" />
+				<exclude name="bin/klist.exe" />
+				<exclude name="bin/ktab.exe" />
+				<exclude name="bin/policytool.exe" />
+				<exclude name="bin/orbd.exe" />
+				<exclude name="bin/servertool.exe" />
+				<exclude name="lib/jfr/**" />
+				<exclude name="lib/jfr.jar" />
+
+				<exclude name="bin/java.exe" />
+				<exclude name="bin/javaws.exe" />
+				<exclude name="bin/javacpl.exe" />
+				<exclude name="bin/jucheck.exe" />
+				<exclude name="bin/dtplugin/**" />
+				<exclude name="bin/jabswitch.exe" />
+				<exclude name="bin/java_crw_demo.dll" />
+				<exclude name="bin/JavaAccessBridge-32.dll" />
+				<exclude name="bin/JAWTAccessBridge-32.dll" />
+				<exclude name="bin/WindowsAccessBridge-32.dll" />
+				<exclude name="bin/wsdetect.dll" />
+				<exclude name="bin/plugin2/**" />
+				<exclude name="bin/deploy.dll" />
+				<exclude name="bin/jfr.dll" />
+				<exclude name="bin/javacpl.dll" />
+				<exclude name="lib/deploy.jar" />
+				<exclude name="lib/plugin.jar" />
+				<exclude name="lib/deploy/**" />
+				<exclude name="lib/cmm/PYCC.pf" />
+				<!-- No need of JavaFX support -->
+				<exclude name="THIRDPARTYLICENSEREADME-JAVAFX.txt" />
+				<exclude name="lib/javafx.properties" />
+				<exclude name="lib/jfxswt.jar" />
+				<exclude name="bin/decora_sse.dll" />
+				<exclude name="bin/fxplugins.dll" />
+				<exclude name="bin/glass.dll" />
+				<exclude name="bin/glib-lite.dll" />
+				<exclude name="bin/gstreamer-lite.dll" />
+				<exclude name="bin/javafx_font.dll" />
+				<exclude name="bin/javafx_font_t2k.dll" />
+				<exclude name="bin/javafx_iio.dll" />
+				<exclude name="bin/jfxmedia.dll" />
+				<exclude name="bin/jfxwebkit.dll" />
+				<exclude name="bin/prism_common.dll" />
+				<exclude name="bin/prism_d3d.dll" />
+				<exclude name="bin/prism_es2.dll" />
+				<exclude name="bin/prism_sw.dll" />
+				<exclude name="lib/ext/jfxrt.jar" />
+				<exclude name="lib/ext/nashorn.jar" />
+			</fileset>
+		</copy>
+
+		<!-- Copy 64 bit JRE to install/windows/build/jre/x64... excluding files mentioned 
+	         in JRE README.TXT file (JRE bin/javaw.exe command excepted) -->
+		<copy todir="install/windows/build/jre8/x64">
+			<fileset dir="C:\Program Files\Java\jre1.8.0_74">
+				<include name="*" />
+				<include name="bin/**" />
+				<include name="lib/**" />
+
+				<exclude name="lib/ext/sunjce_provider.jar" />
+				<exclude name="lib/ext/sunec.jar" />
+				<exclude name="lib/ext/sunpkcs11.jar" />
+				<exclude name="bin/rmid.exe" />
+				<exclude name="bin/rmiregistry.exe" />
+				<exclude name="bin/tnameserv.exe" />
+				<exclude name="bin/keytool.exe" />
+				<exclude name="bin/kinit.exe" />
+				<exclude name="bin/klist.exe" />
+				<exclude name="bin/ktab.exe" />
+				<exclude name="bin/policytool.exe" />
+				<exclude name="bin/orbd.exe" />
+				<exclude name="bin/servertool.exe" />
+				<exclude name="lib/jfr/**" />
+				<exclude name="lib/jfr.jar" />
+
+				<exclude name="bin/java.exe" />
+				<exclude name="bin/javaws.exe" />
+				<exclude name="bin/javacpl.exe" />
+				<exclude name="bin/jucheck.exe" />
+				<exclude name="bin/dtplugin/**" />
+				<exclude name="bin/jabswitch.exe" />
+				<exclude name="bin/java_crw_demo.dll" />
+				<exclude name="bin/JavaAccessBridge-64.dll" />
+				<exclude name="bin/JAWTAccessBridge-64.dll" />
+				<exclude name="bin/WindowsAccessBridge-64.dll" />
+				<exclude name="bin/wsdetect.dll" />
+				<exclude name="bin/plugin2/**" />
+				<exclude name="bin/deploy.dll" />
+				<exclude name="bin/jfr.dll" />
+				<exclude name="bin/javacpl.dll" />
+				<exclude name="lib/deploy.jar" />
+				<exclude name="lib/plugin.jar" />
+				<exclude name="lib/deploy/**" />
+				<exclude name="lib/cmm/PYCC.pf" />
+				<!-- No need of JavaFX support -->
+				<exclude name="THIRDPARTYLICENSEREADME-JAVAFX.txt" />
+				<exclude name="lib/javafx.properties" />
+				<exclude name="lib/jfxswt.jar" />
+				<exclude name="bin/decora_sse.dll" />
+				<exclude name="bin/fxplugins.dll" />
+				<exclude name="bin/glass.dll" />
+				<exclude name="bin/glib-lite.dll" />
+				<exclude name="bin/gstreamer-lite.dll" />
+				<exclude name="bin/javafx_font.dll" />
+				<exclude name="bin/javafx_font_t2k.dll" />
+				<exclude name="bin/javafx_iio.dll" />
+				<exclude name="bin/jfxmedia.dll" />
+				<exclude name="bin/jfxwebkit.dll" />
+				<exclude name="bin/prism_common.dll" />
+				<exclude name="bin/prism_d3d.dll" />
+				<exclude name="bin/prism_es2.dll" />
+				<exclude name="bin/prism_sw.dll" />
+				<exclude name="lib/ext/jfxrt.jar" />
+				<exclude name="lib/ext/nashorn.jar" />
+			</fileset>
+		</copy>
+
+		<!-- Create SweetHome3D-x86.exe and SweetHome3D-x64.exe with launch4j -->
+		<exec executable="C:\Program Files (x86)\Launch4j\launch4jc.exe" failonerror="yes">
+			<arg value="${basedir}\install\windows\installerLaunch4j-x86.xml" />
+		</exec>
+		<exec executable="C:\Program Files (x86)\Launch4j\launch4jc.exe" failonerror="yes">
+			<arg value="${basedir}\install\windows\installerLaunch4j-x64.xml" />
+		</exec>
+
+		<!-- Pack largest jars -->
+		<exec executable="C:\Program Files\Java\jre1.8.0_74\bin\pack200.exe" failonerror="yes">
+			<arg value="${basedir}\install\windows\build\lib\SweetHome3D.pack.gz" />
+			<arg value="${basedir}\install\windows\build\lib\SweetHome3D.jar" />
+		</exec>
+		<delete file="${basedir}\install\windows\build\lib\SweetHome3D.jar" />
+
+		<exec executable="C:\Program Files\Java\jre1.8.0_74\bin\pack200.exe" failonerror="yes">
+			<arg value="-J-Xmx512m" />
+			<arg value="${basedir}\install\windows\build\jre8\x86\lib\rt.pack.gz" />
+			<arg value="${basedir}\install\windows\build\jre8\x86\lib\rt.jar" />
+		</exec>
+		<delete file="${basedir}\install\windows\build\jre8\x86\lib\rt.jar" />
+
+		<exec executable="C:\Program Files\Java\jre1.8.0_74\bin\pack200.exe" failonerror="yes">
+			<arg value="-J-Xmx512m" />
+			<arg value="${basedir}\install\windows\build\jre8\x64\lib\rt.pack.gz" />
+			<arg value="${basedir}\install\windows\build\jre8\x64\lib\rt.jar" />
+		</exec>
+		<delete file="${basedir}\install\windows\build\jre8\x64\lib\rt.jar" />
+	</target>
+
+	<!-- Builds install/SweetHome3D-version-windows.exe installer able to install SweetHome3D.exe 
+	       with a Windows JRE and Sweet Home 3D libraries.
+	       CAUTION : May be run only under Windows 64 bit and requires Windows 32 bit JRE, 64 bit JRE, 
+	                 launch4j and Inno Setup installed in their default location -->
+	<target name="windowsInstaller-impl" description="Builds install/SweetHome3D-version-windows.exe installer">
+		<!-- Create SweetHome3D-version-windows.exe with Inno Setup -->
+		<exec executable="C:\Program Files (x86)\Inno Setup 5\ISCC.exe" failonerror="yes">
+			<arg value="${basedir}\install\windows\installerInnoSetup.iss" />
+		</exec>
+
+		<!-- Clean build directories -->
+		<delete dir="build" />
+		<delete dir="install/windows/build" />
+	</target>
+	<target name="windowsSignedInstaller-impl" description="Builds install/SweetHome3D-version-windows.exe installer">
+			<input message="Enter signature password:" addproperty="password" />
+			<!-- Sign Sweet Home 3D launchers -->
+			<exec executable="C:\Program Files (x86)\Windows Kits\8.1\bin\x86\signtool.exe" failonerror="yes">
+				<arg value="sign" />
+				<arg value="/f" />
+				<arg value="${basedir}\keys.p12" />
+				<arg value="/p" />
+				<arg value="${password}" />
+				<arg value="${basedir}\install\windows\build\SweetHome3D-x86.exe" />
+				<arg value="${basedir}\install\windows\build\SweetHome3D-x64.exe" />
+			</exec>
+			<!-- Create signed SweetHome3D-version-windows.exe with Inno Setup -->
+			<exec executable="C:\Program Files (x86)\Inno Setup 5\ISCC.exe" failonerror="yes">
+				<arg value="/sSignToolPgm=$$qC:\Program Files (x86)\Windows Kits\8.1\bin\x86\signtool.exe$$q sign /f $$q${basedir}\keys.p12$$q /p ${password} $p" />
+				<arg value="${basedir}\install\windows\signedInstallerInnoSetup.iss" />
+			</exec>
+
+			<!-- Clean build directories -->
+			<delete dir="build" />
+			<delete dir="install/windows/build" />
+		</target>
+</project>
