@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="sh3d/install/linux/x64/SweetHome3D-5.2/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="lib/j3dcore.jar"/>
 	<classpathentry kind="lib" path="lib/vecmath.jar"/>
